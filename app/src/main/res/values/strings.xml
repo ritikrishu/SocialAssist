@@ -9,4 +9,9 @@
     <string name="title_activity_channels">ChannelsActivity</string>
 
     <string name="facebook_app_id">207255606303780</string>
+
+    <string name="twitter_callback">https://www.google.co.in</string>
+    <string name="twitter_consumer_key">LumIDCaozffCUACZ72MQLhkAq</string>
+    <string name="twitter_consumer_secret">UsHtlUHnYW1XzBlmwCGCcNLjpeE9DQdkUg2hrjry2LxPJ66Kn0</string>
+    <string name="twitter_oauth_verifier">oauth_verifier</string>
 </resources>
