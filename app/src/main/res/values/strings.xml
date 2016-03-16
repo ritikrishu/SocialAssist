@@ -14,4 +14,11 @@
     <string name="twitter_consumer_key">LumIDCaozffCUACZ72MQLhkAq</string>
     <string name="twitter_consumer_secret">UsHtlUHnYW1XzBlmwCGCcNLjpeE9DQdkUg2hrjry2LxPJ66Kn0</string>
     <string name="twitter_oauth_verifier">oauth_verifier</string>
+
+    <string name="gmail_button">Connect to Gmail</string>
+    <string name="title_activity_gmail_actions">Gmail</string>
+    <string name="scroll_txt"> Google\'s approach to email, Gmail, is built on the idea that email can be more intuitive, efficient, and useful. And may be even fun.</string>
+    <string name="select_action">Select Action</string>
+    <string name="send_email">Send an email</string>
+    <string name="title_activity_create_gmail">Create Email</string>
 </resources>

@@ -67,5 +67,28 @@
         android:paddingRight="10dp"
         android:visibility="gone"
         />
-
+    <TextView
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="182dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="37dp"
+        android:text="@string/gmail_button"
+        android:id="@+id/tvGmail"
+        android:background="@drawable/common_plus_signin_btn_text_dark_normal"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:visibility="visible"
+        android:layout_below="@+id/b_twitter_login"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onGmailButtonClick"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivGmail"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ivfb"
+        android:layout_toEndOf="@+id/ivfb"
+        android:visibility="gone"
+        android:src="@drawable/common_google_signin_btn_icon_dark_normal"/>
 </RelativeLayout>
