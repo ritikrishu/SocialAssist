@@ -57,7 +57,12 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name="android.g38.sanyam.twitter.WebViewActivity"></activity>
+        <activity android:name="android.g38.sanyam.twitter.WebViewActivity" />
+        <activity android:name="android.g38.sanyam.twitter.TweetActivity" />
+
+        <receiver android:name="android.g38.sanyam.twitter.ScheduledTweet" />
+
+        <activity android:name="android.g38.sanyam.facebook.FacebookActivity"></activity>
     </application>
 
 </manifest>

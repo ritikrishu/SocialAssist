@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.g38.sanyam.twitter.TweetActivity;
 import android.g38.sanyam.twitter.WebViewActivity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -71,7 +72,6 @@ public class ChannelsActivity extends AppCompatActivity {
 
         facebookLogin();
         twitterLogin();
-
     }
 
     //facebook function
@@ -229,6 +229,7 @@ public class ChannelsActivity extends AppCompatActivity {
             tv.setVisibility(View.VISIBLE);
         }
     }
+
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
