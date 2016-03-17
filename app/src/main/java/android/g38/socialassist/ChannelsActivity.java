@@ -70,6 +70,18 @@ public class ChannelsActivity extends AppCompatActivity {
     private static Button twitterLoginButton;
     private ImageView ivtwitter ;
 
+    //gmail stuf--
+    GoogleAccountCredential mCredential;
+    static final int REQUEST_ACCOUNT_PICKER = 1000;
+    static final int REQUEST_AUTHORIZATION = 1001;
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    private static final String[] SCOPES = {GmailScopes.MAIL_GOOGLE_COM};
+    private static final String PREF_ACCOUNT_NAME = "accountName";
+    static com.google.api.services.gmail.Gmail mService = null;
+    ProgressDialog mProgress;
+    public static String accountName = null;
+    ImageView ivGoogleButton;
+    TextView tvGoogleButton;
 
 
     @Override
@@ -96,8 +108,10 @@ public class ChannelsActivity extends AppCompatActivity {
     private void facebookLogin(){
         final LoginButton fbLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
         final ImageView ivfb = (ImageView) findViewById(R.id.ivfb);
+        final TextView tv = (TextView) findViewById(R.id.tv);
         sharedPreferencesFb = getSharedPreferences("login", getApplicationContext().MODE_PRIVATE);
         if(sharedPreferencesFb.getBoolean("facebook",false)) {
+            tv.setVisibility(View.VISIBLE);
             ivfb.setVisibility(View.VISIBLE);
             fbLoginButton.setVisibility(View.GONE);
         }
@@ -107,7 +121,7 @@ public class ChannelsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Toast.makeText(ChannelsActivity.this, "Connected via Facebook", Toast.LENGTH_SHORT).show();
-                        TextView tv = (TextView) findViewById(R.id.tv);
+
                         tv.setVisibility(View.VISIBLE);
                         ivfb.setVisibility(View.VISIBLE);
                         sharedPreferencesFb = getSharedPreferences("login", getApplicationContext().MODE_PRIVATE);
@@ -301,20 +315,7 @@ public class ChannelsActivity extends AppCompatActivity {
         }
     }
 
-    //gmail stuf--
-    GoogleAccountCredential mCredential;
-    static final int REQUEST_ACCOUNT_PICKER = 1000;
-    static final int REQUEST_AUTHORIZATION = 1001;
-    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
-    private static final String[] SCOPES = {GmailScopes.MAIL_GOOGLE_COM};
-    private static final String PREF_ACCOUNT_NAME = "accountName";
-    static com.google.api.services.gmail.Gmail mService = null;
-    ProgressDialog mProgress;
-    public static String accountName = null;
-    ImageView ivGoogleButton;
-    TextView tvGoogleButton;
-
-
+    //gmail functions
 
     public void onGmailButtonClick(View v){
         mProgress = new ProgressDialog(this);
