@@ -1,8 +1,9 @@
-package android.g38.ritik;
+package android.g38.ritik.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.g38.ritik.Database.DataBaseContracter;
 
 /**
  * Created by ritik on 3/17/2016.

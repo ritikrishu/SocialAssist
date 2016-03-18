@@ -1,4 +1,4 @@
-package android.g38.ritik;
+package android.g38.ritik.Gmail;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -39,7 +39,7 @@ public class ScheduleMail extends BroadcastReceiver {
         mCredential = GoogleAccountCredential.usingOAuth2(
                 context, Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff())
-                .setSelectedAccountName(intent.getStringExtra("accountName"));
+                .setSelectedAccountName("ritikrishu@gmail.com");
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.gmail.Gmail.Builder(
