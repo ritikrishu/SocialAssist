@@ -21,4 +21,8 @@
     <string name="select_action">Select Action</string>
     <string name="send_email">Send an email</string>
     <string name="title_activity_create_gmail">Create Email</string>
+    <string name="title_activity_create_recipe">Create New Recipe</string>
+    <string name="title_activity_select_trigger">Select Trigger</string>
+    <string name="title_activity_battery_trigger">Android Battery</string>
+    <string name="title_activity_smstrigger">Android SMS</string>
 </resources>

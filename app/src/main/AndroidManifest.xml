@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.SEND_RESPOND_VIA_MESSAGE" />
+    <uses-permission android:name="com.google.android.gm.permission.READ_GMAIL" />
+    <uses-permission android:name="com.google.android.gm.permission.READ_CONTENT_PROVIDER" />
 
     <application
         android:allowBackup="true"
@@ -74,9 +76,12 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <receiver android:name="android.g38.ritik.ScheduleMail" />
+
+        <receiver android:name="android.g38.ritik.Gmail.ScheduleMail" />
+        <receiver android:name="android.g38.ritik.Gmail.CheckNewMail" />
+
         <activity
-            android:name="android.g38.ritik.GmailActionsActivity"
+            android:name="android.g38.ritik.Gmail.GmailActionsActivity"
             android:label="@string/title_activity_gmail_actions"
             android:parentActivityName=".ChannelsActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -85,13 +90,49 @@
                 android:value="android.g38.socialassist.ChannelsActivity" />
         </activity>
         <activity
-            android:name="android.g38.ritik.CreateGmailActivity"
+            android:name="android.g38.ritik.Gmail.CreateGmailActivity"
             android:label="@string/title_activity_create_gmail"
-            android:parentActivityName="android.g38.ritik.GmailActionsActivity"
+            android:parentActivityName="android.g38.ritik.Gmail.GmailActionsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.g38.ritik.GmailActionsActivity" />
+                android:value="android.g38.ritik.Gmail.GmailActionsActivity" />
+        </activity>
+        <activity
+            android:name=".CreateRecipeActivity"
+            android:label="@string/title_activity_create_recipe"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".SelectTriggerActivity"
+            android:label="@string/title_activity_select_trigger"
+            android:parentActivityName=".CreateRecipeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.CreateRecipeActivity" />
+        </activity>
+        <activity
+            android:name="android.g38.ritik.TriggerChannels.BatteryTriggerActivity"
+            android:label="@string/title_activity_battery_trigger"
+            android:parentActivityName=".SelectTriggerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.SelectTriggerActivity" />
+        </activity>
+        <activity
+            android:name="android.g38.ritik.TriggerChannels.SMSTriggerActivity"
+            android:label="@string/title_activity_smstrigger"
+            android:parentActivityName=".SelectTriggerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.SelectTriggerActivity" />
         </activity>
     </application>
 

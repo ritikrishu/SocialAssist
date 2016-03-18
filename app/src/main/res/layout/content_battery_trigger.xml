@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="android.g38.ritik.TriggerChannels.BatteryTriggerActivity"
+    tools:showIn="@layout/activity_battery_trigger">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#EDD1D4"
+            android:text="Select Trigger"
+            android:textSize="20sp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            />
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Device is plugged in"
+            android:id="@+id/btnPlugged"
+            android:textStyle="bold"
+            android:background="#BFBF3F"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Device is unplugged"
+            android:id="@+id/btnUnplugged"
+            android:textStyle="bold"
+            android:background="#BFBF3F"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Battery drops below 15%"
+            android:id="@+id/btnBtryCritical"
+            android:textStyle="bold"
+            android:background="#BFBF3F"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package android.g38.ritik;
+package android.g38.ritik.Database;
 
 import android.provider.BaseColumns;
 

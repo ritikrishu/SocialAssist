@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="android.g38.ritik.GmailActionsActivity"
+    tools:context="android.g38.ritik.Gmail.GmailActionsActivity"
     tools:showIn="@layout/activity_gmail_actions">
 <LinearLayout
     android:layout_width="match_parent"
