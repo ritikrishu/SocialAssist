@@ -134,6 +134,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.g38.socialassist.SelectTriggerActivity" />
         </activity>
+        <activity
+            android:name="android.g38.ritik.TriggerChannels.DeviceTriggerActivity"
+            android:label="@string/title_activity_device_trigger"
+            android:parentActivityName=".SelectTriggerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.SelectTriggerActivity" />
+        </activity>
+        <activity
+            android:name="android.g38.ritik.TriggerChannels.DateTimePickerActivity"
+            android:label="@string/title_activity_date_time_picker"
+            android:parentActivityName=".SelectTriggerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.SelectTriggerActivity" />
+        </activity>
     </application>
 
 </manifest>

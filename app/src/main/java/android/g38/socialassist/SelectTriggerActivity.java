@@ -3,6 +3,8 @@ package android.g38.socialassist;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.g38.ritik.TriggerChannels.BatteryTriggerActivity;
+import android.g38.ritik.TriggerChannels.DateTimePickerActivity;
+import android.g38.ritik.TriggerChannels.DeviceTriggerActivity;
 import android.g38.ritik.TriggerChannels.SMSTriggerActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -45,10 +47,10 @@ public class SelectTriggerActivity extends AppCompatActivity {
                     startActivity(new Intent(SelectTriggerActivity.this, BatteryTriggerActivity.class));
                     break;
                 case R.id.ivDatenTime :
-
+                    startActivity(new Intent(SelectTriggerActivity.this, DateTimePickerActivity.class));
                     break;
                 case R.id.ivDevice :
-
+                    startActivity(new Intent(SelectTriggerActivity.this, DeviceTriggerActivity.class));
                     break;
                 case R.id.ivFacebookChannel :
 
