@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.g38.sanyam.contentprovider.ForCp;
 import android.g38.sanyam.facebook.FacebookActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,16 +35,37 @@ public class BatteryTriggerActivity extends AppCompatActivity {
         pluggedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(forCp.getBoolean("addDone",false)){
+                ForCp.setBase(getApplicationContext(), "pluggedIn");
+                startActivity(new Intent(BatteryTriggerActivity.this,FacebookActivity.class));
+            }
+        });
 
-                }else {
-                    SharedPreferences.Editor editor=forCp.edit();
-                    editor.clear();
-                    editor.putBoolean("add", true);
-                    editor.commit();
-                    startActivity(new Intent(BatteryTriggerActivity.this,FacebookActivity.class));
-                }
+        pluggedOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForCp.setBase(getApplicationContext(), "pluggedOut");
+                startActivity(new Intent(BatteryTriggerActivity.this,FacebookActivity.class));
+            }
+        });
+
+        below15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForCp.setBase(getApplicationContext(), "below15");
+                startActivity(new Intent(BatteryTriggerActivity.this,FacebookActivity.class));
             }
         });
     }
+
+//    void setBase(String base){
+//        if(!(forCp.getBoolean("addDone",false))){
+//            SharedPreferences.Editor editor=forCp.edit();
+//            editor.clear();
+//            editor.putBoolean("add", true);
+//            editor.putString("base",base);
+//            editor.commit();
+//            startActivity(new Intent(BatteryTriggerActivity.this,FacebookActivity.class));
+//        }
+//    }
+
 }
