@@ -78,7 +78,7 @@
             android:value="@integer/google_play_services_version" />
 
         <receiver android:name="android.g38.ritik.Gmail.ScheduleMail" />
-        <receiver android:name="android.g38.ritik.Gmail.CheckNewMail" />
+        <!--<receiver android:name="android.g38.ritik.Gmail.CheckNewMail" />-->
 
         <activity
             android:name="android.g38.ritik.Gmail.GmailActionsActivity"
@@ -152,6 +152,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.g38.socialassist.SelectTriggerActivity" />
         </activity>
+
+        <receiver android:name="android.g38.sanyam.androidreceivers.BatteryReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.ACTION_BATTERY_LOW" />
+                <action android:name="android.intent.action.ACTION_BATTERY_OKAY" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="android.g38.sanyam.facebook.ScheduledPost"/>
+
+        <!--<provider-->
+            <!--android:name="android.g38.sanyam.contentprovider.Flags"-->
+            <!--android:authorities="android.g38.sanyam.contentprovider.TASKS"-->
+             <!--/>-->
+        <provider
+            android:name="android.g38.sanyam.contentprovider.Tasks"
+            android:authorities="android.g38.sanyam.contentprovider"
+             />
+
     </application>
 
 </manifest>
