@@ -8,23 +8,38 @@ import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.HomeActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 public class FacebookActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         SharedPreferences forCp = getSharedPreferences("forCp", Context.MODE_PRIVATE);
         if(forCp.getBoolean("add",false)){
         ContentValues values = new ContentValues();
         values.put(Tasks.extras, "https://developers.facebook.com");
         values.put(Tasks.intent, "android.g38.sanyam.facebook.ScheduledPost");
-        values.put(Tasks.base, "pluggedIn");
+        values.put(Tasks.base, forCp.getString("base",""));
         values.put(Tasks.state, "true");
+
+            if(forCp.getBoolean("others",false)){
+                values.put(Tasks.others, forCp.getString("data",""));
+            }else{
+                values.put(Tasks.others, "");
+            }
         String mSelectionClause = Tasks.base +  " LIKE ?";
-        String[] mSelectionArgs = {"pluggedIn"};
+        String[] mSelectionArgs = {forCp.getString("base","")};
+
         int c = getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+            //uncomment <code>
+            //  SharedPreferences.Editor editor = forCp.edit();
+            //editor.putBoolean("adddone",true);
+            //editor.commit();
+            //
+            // </code>
+
         startActivity(new Intent(FacebookActivity.this, HomeActivity.class));
     }
     }
