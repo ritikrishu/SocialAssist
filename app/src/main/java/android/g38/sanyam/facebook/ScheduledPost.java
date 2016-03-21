@@ -45,10 +45,10 @@ public class ScheduledPost extends BroadcastReceiver
             extras = intent.getExtras();
             this.context=context;
             this.intent=intent;
-            //postLink();
+            postLink();
             // postImage();
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Posted on Facebook").setContentText(extras.getString("imagePath")).setAutoCancel(true);
+                    .setContentTitle("Posted on Facebook").setContentText(extras.getString("extra")).setAutoCancel(true);
 
             NotificationManager notificationmanager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -61,7 +61,7 @@ public class ScheduledPost extends BroadcastReceiver
 
 
     void postLink(){
-        ShareLinkContent content = new ShareLinkContent.Builder().setContentUrl(Uri.parse(extras.getString("link"))).build();
+        ShareLinkContent content = new ShareLinkContent.Builder().setContentUrl(Uri.parse(extras.getString("extra"))).build();
         ShareApi.share(content, null);
     }
 

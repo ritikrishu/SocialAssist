@@ -1,24 +1,32 @@
 package android.g38.sanyam.facebook;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
+import android.g38.sanyam.contentprovider.Tasks;
+import android.g38.socialassist.HomeActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
-import java.util.GregorianCalendar;
+import android.support.v7.app.AppCompatActivity;
 
 public class FacebookActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences forCp = getSharedPreferences("forCp", Context.MODE_PRIVATE);
+        if(forCp.getBoolean("add",false)){
+        ContentValues values = new ContentValues();
+        values.put(Tasks.extras, "https://developers.facebook.com");
+        values.put(Tasks.intent, "android.g38.sanyam.facebook.ScheduledPost");
+        values.put(Tasks.base, "pluggedIn");
+        values.put(Tasks.state, "true");
+        String mSelectionClause = Tasks.base +  " LIKE ?";
+        String[] mSelectionArgs = {"pluggedIn"};
+        int c = getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+        startActivity(new Intent(FacebookActivity.this, HomeActivity.class));
+    }
     }
 
 //    Button image = (Button)findViewById(R.id.image);
