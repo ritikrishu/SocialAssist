@@ -2,6 +2,8 @@ package android.g38.socialassist;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.g38.ritik.Gmail.GmailActionsActivity;
 import android.g38.ritik.TriggerChannels.BatteryTriggerActivity;
 import android.g38.ritik.TriggerChannels.DateTimePickerActivity;
 import android.g38.ritik.TriggerChannels.DeviceTriggerActivity;
@@ -19,7 +21,7 @@ import android.widget.ImageView;
 
 public class SelectTriggerActivity extends AppCompatActivity {
 
-    private ImageView ivBattery, ivFacebook, ivTwitter, ivDevice, ivDatenTime, ivSms;
+    private ImageView ivBattery, ivFacebook, ivTwitter, ivDevice, ivDatenTime, ivSms, ivGmail;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class SelectTriggerActivity extends AppCompatActivity {
         ivFacebook = (ImageView)findViewById(R.id.ivFacebookChannel);
         ivTwitter = (ImageView)findViewById(R.id.ivTwitterChannel);
         ivSms = (ImageView)findViewById(R.id.ivSms);
+        ivGmail = (ImageView)findViewById(R.id.ivGmailChannel);
         decideLayout();
         setSupportActionBar(toolbar);
         ivBattery.setOnClickListener(new OnclickAction());
@@ -40,16 +43,24 @@ public class SelectTriggerActivity extends AppCompatActivity {
         ivFacebook.setOnClickListener(new OnclickAction());
         ivTwitter.setOnClickListener(new OnclickAction());
         ivSms.setOnClickListener(new OnclickAction());
+        ivGmail.setOnClickListener(new OnclickAction());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     private void decideLayout(){
-        if(getIntent().getBooleanExtra("IF",true))
+        SharedPreferences preferences = getSharedPreferences("accountName",MODE_PRIVATE);
+        if(getIntent().getBooleanExtra("IF",true)) {
             toolbar.setTitle("Select Trigger");
+            ivGmail.setVisibility(View.GONE);
+
+        }
         else {
             toolbar.setTitle("Select Action");
             ivBattery.setVisibility(View.GONE);
             ivDatenTime.setVisibility(View.GONE);
+            if(preferences.getString("accountName",null) == null)
+                ivGmail.setVisibility(View.GONE);
         }
+
     }
     class OnclickAction implements View.OnClickListener {
 
@@ -83,6 +94,11 @@ public class SelectTriggerActivity extends AppCompatActivity {
                 case R.id.ivSms :
                     intent = new Intent(SelectTriggerActivity.this, SMSTriggerActivity.class);
                     intent.putExtra("IF",getIntent().getBooleanExtra("IF", true));
+                    startActivity(intent);
+                    break;
+                case R.id.ivGmailChannel:
+                    intent = new Intent(SelectTriggerActivity.this, GmailActionsActivity.class);
+                    intent.putExtra("IF", getIntent().getBooleanExtra("IF", true));
                     startActivity(intent);
                     break;
                 default:

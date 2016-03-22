@@ -49,7 +49,7 @@ public class CreateGmailActivity extends AppCompatActivity {
                     intent.putExtra("to", to.getText().toString());
                     intent.putExtra("sub", sub.getText().toString());
                     intent.putExtra("body", body.getText().toString());
-                    intent.putExtra("accountName", settings.getString("accountName", null));
+                   // intent.putExtra("accountName", settings.getString("accountName", null));
                     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                     Long time = new GregorianCalendar().getTimeInMillis() + 10 * 1000;
                     alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(CreateGmailActivity.this, 1,
