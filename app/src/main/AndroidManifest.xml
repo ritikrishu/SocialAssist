@@ -123,38 +123,38 @@
         <activity
             android:name="android.g38.ritik.TriggerChannels.BatteryTriggerActivity"
             android:label="@string/title_activity_battery_trigger"
-            android:parentActivityName=".SelectTriggerActivity"
+            android:parentActivityName=".CreateRecipeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.g38.socialassist.SelectTriggerActivity" />
+                android:value="android.g38.socialassist.CreateRecipeActivity" />
         </activity>
         <activity
             android:name="android.g38.ritik.TriggerChannels.SMSTriggerActivity"
             android:label="@string/title_activity_smstrigger"
-            android:parentActivityName=".SelectTriggerActivity"
+            android:parentActivityName=".CreateRecipeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.g38.socialassist.SelectTriggerActivity" />
+                android:value="android.g38.socialassist.CreateRecipeActivity" />
         </activity>
         <activity
             android:name="android.g38.ritik.TriggerChannels.DeviceTriggerActivity"
             android:label="@string/title_activity_device_trigger"
-            android:parentActivityName=".SelectTriggerActivity"
+            android:parentActivityName=".CreateRecipeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.g38.socialassist.SelectTriggerActivity" />
+                android:value="android.g38.socialassist.CreateRecipeActivity" />
         </activity>
         <activity
             android:name="android.g38.ritik.TriggerChannels.DateTimePickerActivity"
             android:label="@string/title_activity_date_time_picker"
-            android:parentActivityName=".SelectTriggerActivity"
+            android:parentActivityName=".CreateRecipeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.g38.socialassist.SelectTriggerActivity" />
+                android:value="android.g38.socialassist.CreateRecipeActivity" />
         </activity>
 
         <receiver android:name="android.g38.sanyam.androidreceivers.BatteryReceiver">

@@ -12,21 +12,37 @@ import android.util.Log;
 import android.view.View;
 import android.g38.socialassist.R;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class SMSTriggerActivity extends AppCompatActivity {
 
-    Button newSms,newSmsString,newSmsNumber;
+    Button newSms,newSmsString,newSmsNumber, btnSendSMS;
+    LinearLayout llAction, llTrigger;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smstrigger);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        llAction = (LinearLayout)findViewById(R.id.llAction);
+        llTrigger = (LinearLayout)findViewById(R.id.llTrigger);
+        decideLayout();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        btnSendSMS = (Button)findViewById(R.id.btnSMSSend);
         newSms=(Button)findViewById(R.id.btnANSR);
         newSmsString=(Button)findViewById(R.id.btnNSRMS);
         newSmsNumber=(Button)findViewById(R.id.btnNSRFPN);
 
+        btnSendSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                // code for sms sent
+
+
+            }
+        });
 
         newSms.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,5 +69,15 @@ public class SMSTriggerActivity extends AppCompatActivity {
                 startActivity(new Intent(SMSTriggerActivity.this,FacebookActivity.class));
             }
         });
+    }
+    private void decideLayout(){
+        if(getIntent().getBooleanExtra("IF",true)){
+            llTrigger.setVisibility(View.VISIBLE);
+            llAction.setVisibility(View.GONE);
+        }
+        else{
+            llTrigger.setVisibility(View.GONE);
+            llAction.setVisibility(View.VISIBLE);
+        }
     }
 }

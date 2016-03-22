@@ -9,8 +9,14 @@
     tools:showIn="@layout/activity_smstrigger">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/llTrigger"
+        android:visibility="gone">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -63,5 +69,37 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:foregroundGravity="center_horizontal"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/llAction"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#EDD1D4"
+            android:text="Select Action"
+            android:textSize="20sp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            />
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Send an SMS"
+            android:id="@+id/btnSMSSend"
+            android:textStyle="bold"
+            android:background="#BFBF3F"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+    </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

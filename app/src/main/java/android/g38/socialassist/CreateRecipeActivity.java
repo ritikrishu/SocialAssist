@@ -72,9 +72,13 @@ public class CreateRecipeActivity extends AppCompatActivity {
     }
 
     public void onIFClick(View v){
-        startActivity(new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class));
+        Intent intent = new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class);
+        intent.putExtra("IF",true);
+        startActivity(intent);
     }
     public void onThenClick(View v){
-
+        Intent intent = new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class);
+        intent.putExtra("IF",false);
+        startActivity(intent);
     }
 }

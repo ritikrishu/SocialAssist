@@ -27,4 +27,9 @@ public class DateTimePickerActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
