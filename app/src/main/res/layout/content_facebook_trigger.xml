@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="android.g38.ritik.TriggerChannels.FacebookTriggerActivity"
+    tools:showIn="@layout/activity_facebook_trigger">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/llAction">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#EDD1D4"
+            android:text="@string/select_action"
+            android:textSize="20sp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            />
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Share link on facebook"
+            android:id="@+id/btnShareLink"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Share photo on facebook"
+            android:id="@+id/btnSharePhoto"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/llTrigger">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#EDD1D4"
+            android:text="Select Trigger"
+            android:textSize="20sp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            />
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="New link shared by you"
+            android:id="@+id/btnNewShareLink"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+        <Button
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="New photo shared by you"
+            android:id="@+id/btnNewSharePhoto"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
+    </LinearLayout>
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

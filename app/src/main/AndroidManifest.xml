@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <!-- for gmail part -->
@@ -82,7 +82,7 @@
             android:value="@integer/google_play_services_version" />
 
         <receiver android:name="android.g38.ritik.Gmail.ScheduleMail" />
-        <!--<receiver android:name="android.g38.ritik.Gmail.CheckNewMail" />-->
+        <!-- <receiver android:name="android.g38.ritik.Gmail.CheckNewMail" /> -->
 
         <activity
             android:name="android.g38.ritik.Gmail.GmailActionsActivity"
@@ -165,19 +165,26 @@
                 <action android:name="android.intent.action.ACTION_BATTERY_OKAY" />
             </intent-filter>
         </receiver>
-        <receiver android:name="android.g38.sanyam.facebook.ScheduledPost"/>
-
-        <receiver android:name="android.g38.sanyam.androidreceivers.ReadMessages" >
+        <receiver android:name="android.g38.sanyam.facebook.ScheduledPost" />
+        <receiver android:name="android.g38.sanyam.androidreceivers.ReadMessages">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
-
         </receiver>
+
         <provider
             android:name="android.g38.sanyam.contentprovider.Tasks"
-            android:authorities="android.g38.sanyam.contentprovider"
-             />
+            android:authorities="android.g38.sanyam.contentprovider" />
 
+        <activity
+            android:name="android.g38.ritik.TriggerChannels.FacebookTriggerActivity"
+            android:label="@string/title_activity_facebook_trigger"
+            android:parentActivityName=".CreateRecipeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.CreateRecipeActivity" />
+        </activity>
     </application>
 
 </manifest>

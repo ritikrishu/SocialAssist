@@ -116,6 +116,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_date_time_picker">Select Date and Time</string>
+    <string name="title_activity_facebook_trigger">Facebook</string>
 
 
 </resources>
