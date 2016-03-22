@@ -63,6 +63,7 @@ public class BatteryReceiver extends BroadcastReceiver {
                         cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),context);
             }
         }
+
     }
     void schedule(String className,String extras,Context context){
         try {
