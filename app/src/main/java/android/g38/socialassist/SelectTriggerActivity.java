@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.g38.ritik.TriggerChannels.BatteryTriggerActivity;
 import android.g38.ritik.TriggerChannels.DateTimePickerActivity;
 import android.g38.ritik.TriggerChannels.DeviceTriggerActivity;
+import android.g38.ritik.TriggerChannels.FacebookTriggerActivity;
 import android.g38.ritik.TriggerChannels.SMSTriggerActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -72,7 +73,9 @@ public class SelectTriggerActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.ivFacebookChannel :
-
+                    intent = new Intent(SelectTriggerActivity.this, FacebookTriggerActivity.class);
+                    intent.putExtra("IF",getIntent().getBooleanExtra("IF", true));
+                    startActivity(intent);
                     break;
                 case R.id.ivTwitterChannel :
 
