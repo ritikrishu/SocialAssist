@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.g38.socialassist.R;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class BatteryTriggerActivity extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         pluggedIn=(Button)findViewById(R.id.btnPlugged);
         pluggedOut=(Button)findViewById(R.id.btnUnplugged);
         below15=(Button)findViewById(R.id.btnBtryCritical);

@@ -18,15 +18,15 @@
         android:layout_height="100dp"
         android:src="@drawable/ic_battery_channel"
         android:id="@+id/ivBattery"
-        android:layout_alignTop="@+id/ivSms"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignTop="@+id/ivDatenTime"
+        android:layout_alignLeft="@+id/ivDevice"
+        android:layout_alignStart="@+id/ivDevice" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_device_channel"
         android:id="@+id/ivDevice"
-        android:layout_above="@+id/ivFacebookChannel"
+        android:layout_alignTop="@+id/ivSms"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     <ImageView
@@ -43,23 +43,22 @@
         android:src="@drawable/ic_dateandtime_channel"
         android:id="@+id/ivDatenTime"
         android:layout_alignTop="@+id/ivTwitterChannel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/ivSms"
+        android:layout_alignStart="@+id/ivSms" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_facebook_channel"
         android:id="@+id/ivFacebookChannel"
-        android:layout_marginTop="66dp"
-        android:layout_below="@+id/ivSms"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/ivSms"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_twitter_channel"
         android:id="@+id/ivTwitterChannel"
-        android:layout_alignTop="@+id/ivFacebookChannel"
-        android:layout_alignLeft="@+id/ivSms"
-        android:layout_alignStart="@+id/ivSms" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
