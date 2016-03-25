@@ -3,6 +3,9 @@ package android.g38.ritik.TriggerChannels;
 import android.content.Intent;
 import android.g38.sanyam.contentprovider.ForCp;
 import android.g38.sanyam.facebook.FacebookActivity;
+import android.g38.socialassist.CreateRecipeActivity;
+import android.g38.socialassist.UserInput;
+import android.g38.socialassist.UserInputThen;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,10 +39,9 @@ public class SMSTriggerActivity extends AppCompatActivity {
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                // code for sms sent
-
+                Intent intent = new Intent(SMSTriggerActivity.this, UserInputThen.class);
+                intent.putExtra("msg", "sms");
+                startActivity(intent);
 
             }
         });
@@ -48,7 +50,8 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSms");
-                startActivity(new Intent(SMSTriggerActivity.this, FacebookActivity.class));
+                startActivity(new Intent(SMSTriggerActivity.this, CreateRecipeActivity.class));
+
             }
         });
 
@@ -56,8 +59,10 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSmsString");
-                ForCp.setOthers(getApplicationContext(), "message");
-                startActivity(new Intent(SMSTriggerActivity.this,FacebookActivity.class));
+                Intent intent = new Intent(SMSTriggerActivity.this, UserInput.class);
+                intent.putExtra("msg", "Enter Message to Search");
+                startActivity(intent);
+
             }
         });
 
@@ -65,8 +70,10 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSmsNumber");
-                ForCp.setOthers(getApplicationContext(), "8527311497");
-                startActivity(new Intent(SMSTriggerActivity.this,FacebookActivity.class));
+                Intent intent = new Intent(SMSTriggerActivity.this, UserInput.class);
+                intent.putExtra("msg", "Enter Number to Search");
+                startActivity(intent);
+
             }
         });
     }

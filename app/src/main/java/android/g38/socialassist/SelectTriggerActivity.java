@@ -7,6 +7,7 @@ import android.g38.ritik.TriggerChannels.DateTimePickerActivity;
 import android.g38.ritik.TriggerChannels.DeviceTriggerActivity;
 import android.g38.ritik.TriggerChannels.FacebookTriggerActivity;
 import android.g38.ritik.TriggerChannels.SMSTriggerActivity;
+import android.g38.ritik.TriggerChannels.TwitterTriggerActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -78,7 +79,9 @@ public class SelectTriggerActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.ivTwitterChannel :
-
+                    intent = new Intent(SelectTriggerActivity.this, TwitterTriggerActivity.class);
+                    intent.putExtra("IF",getIntent().getBooleanExtra("IF", true));
+                    startActivity(intent);
                     break;
                 case R.id.ivSms :
                     intent = new Intent(SelectTriggerActivity.this, SMSTriggerActivity.class);
