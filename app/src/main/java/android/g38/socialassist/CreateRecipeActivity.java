@@ -23,50 +23,20 @@ public class CreateRecipeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //code for creating the state checker CP.
-        SharedPreferences sc = getSharedPreferences("sc", Context.MODE_PRIVATE);
-        if(!(sc.getBoolean("created",false))){
 
-            ContentValues values = new ContentValues();
-            values.put(Tasks.base, "pluggedIn");
-            values.put(Tasks.state, "false");
-            Uri uri = getContentResolver().insert(Tasks.CONTENT_URI, values);
-            values = new ContentValues();
-            values.put(Tasks.base, "pluggedOut");
-            values.put(Tasks.state, "false");
-            uri = getContentResolver().insert(Tasks.CONTENT_URI, values);
-            values = new ContentValues();
-            values.put(Tasks.base, "below15");
-            values.put(Tasks.state, "false");
-            uri = getContentResolver().insert(Tasks.CONTENT_URI, values);
-            values = new ContentValues();
-            values.put(Tasks.base, "newSms");
-            values.put(Tasks.state, "false");
-            uri = getContentResolver().insert(Tasks.CONTENT_URI, values);
-            values = new ContentValues();
-            values.put(Tasks.base, "newSmsString");
-            values.put(Tasks.state, "false");
-            uri = getContentResolver().insert(Tasks.CONTENT_URI, values);
-            values = new ContentValues();
-            values.put(Tasks.base, "newSmsNumber");
-            values.put(Tasks.state, "false");
-            uri = getContentResolver().insert(Tasks.CONTENT_URI, values);
-            SharedPreferences.Editor editor=sc.edit();
-            editor.putBoolean("created", true);
-            editor.commit();
-
-        }
-        Cursor c = managedQuery(Tasks.CONTENT_URI, null, null, null, null);
-
-        if (c.moveToFirst()) {
-            do{
-                Toast.makeText(this,
-                        c.getString(c.getColumnIndex(Tasks._ID)) +
-                                ", " + c.getString(c.getColumnIndex(Tasks.base)) +
-                                ", " + c.getString(c.getColumnIndex(Tasks.state)),
-                        Toast.LENGTH_SHORT).show();
-            } while (c.moveToNext());
-        }
+//        Cursor c = managedQuery(Tasks.CONTENT_URI, null, null, null, null);
+//
+//        if (c.moveToFirst()) {
+//            do{
+//                Toast.makeText(this,
+//                        c.getString(c.getColumnIndex(Tasks._ID)) +
+//                                ", " + c.getString(c.getColumnIndex(Tasks.base)) +
+//                                ", " + c.getString(c.getColumnIndex(Tasks.state))+
+//                                ", " + c.getString(c.getColumnIndex(Tasks.actions))+
+//                                ", " + c.getString(c.getColumnIndex(Tasks.extras)),
+//                        Toast.LENGTH_SHORT).show();
+//            } while (c.moveToNext());
+//        }
 
 
     }
@@ -81,4 +51,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
         intent.putExtra("IF",false);
         startActivity(intent);
     }
+
+
 }

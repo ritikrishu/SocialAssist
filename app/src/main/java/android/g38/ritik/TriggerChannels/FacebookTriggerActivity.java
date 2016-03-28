@@ -1,5 +1,8 @@
 package android.g38.ritik.TriggerChannels;
 
+import android.content.Intent;
+import android.g38.sanyam.facebook.FacebookActivity;
+import android.g38.socialassist.UserInputThen;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -50,22 +53,35 @@ public class FacebookTriggerActivity extends AppCompatActivity {
         public void onClick(View v) {
             if(v.getId()==R.id.btnNewShareLink){
                 //Trigger button on new link shared by user
+                Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
+                intent.putExtra("msg", "Enter Link To Share");
+                startActivity(intent);
 
 
             }
             else if(v.getId()==R.id.btnNewSharePhoto){
                 //Trigger button on new photo shared by user
-
+                Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
+                intent.putExtra("msg", "image");
+                startActivity(intent);
 
             }
             else if(v.getId()==R.id.btnShareLink){
                 //Action button to share a new link
+                Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
+                intent.putExtra("msg", "Enter Link To Share");
+                intent.putExtra("tag","then");
+                startActivity(intent);
+
 
 
             }
             else if(v.getId()==R.id.btnSharePhoto){
                 //Action button to share a new photo
-
+                Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
+                intent.putExtra("msg", "image");
+                intent.putExtra("tag","then");
+                startActivity(intent);
 
             }
         }

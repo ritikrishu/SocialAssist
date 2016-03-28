@@ -33,6 +33,7 @@ public class Tasks extends ContentProvider {
     static final public String base = "base";
     static final public String state = "state";
     static final public String others = "others";
+    static final public String actions = "actions";
 
     private static HashMap<String, String> PROJECTION_MAP;
 
@@ -56,7 +57,7 @@ public class Tasks extends ContentProvider {
     static final String CREATE_DB_TABLE =
             " CREATE TABLE " + TABLE_NAME +
                     " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    " extras TEXT, " +" base TEXT, "+" state TEXT, "+" others TEXT, "+
+                    " extras TEXT, " +" base TEXT, "+" state TEXT, "+" others TEXT, "+" actions TEXT, "+
                     " intent TEXT);";
 
     /**
