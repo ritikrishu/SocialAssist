@@ -77,7 +77,6 @@ public class ChannelsActivity extends AppCompatActivity {
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     private static final String[] SCOPES = {GmailScopes.MAIL_GOOGLE_COM};
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    static com.google.api.services.gmail.Gmail mService = null;
     ProgressDialog mProgress;
     public static String accountName = null;
     ImageView ivGoogleButton;
@@ -297,11 +296,12 @@ public class ChannelsActivity extends AppCompatActivity {
                             data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                     if (accountName != null) {
                         mCredential.setSelectedAccountName(accountName);
-                        SharedPreferences settings =
-                                getSharedPreferences(PREF_ACCOUNT_NAME,Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = settings.edit();
+                        SharedPreferences preferences = getSharedPreferences(PREF_ACCOUNT_NAME, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
                         editor.putString(PREF_ACCOUNT_NAME, accountName);
                         editor.apply();
+                        tvGoogleButton.setVisibility(View.GONE);
+                        ivGoogleButton.setVisibility(View.VISIBLE);
                     }
                 } else if (resultCode == RESULT_CANCELED) {
                     Toast.makeText(ChannelsActivity.this,"Account unspecified",Toast.LENGTH_LONG).show();
