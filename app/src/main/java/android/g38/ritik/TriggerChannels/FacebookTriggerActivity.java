@@ -1,6 +1,7 @@
 package android.g38.ritik.TriggerChannels;
 
 import android.content.Intent;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.facebook.FacebookActivity;
 import android.g38.socialassist.UserInputThen;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class FacebookTriggerActivity extends AppCompatActivity {
         public void onClick(View v) {
             if(v.getId()==R.id.btnNewShareLink){
                 //Trigger button on new link shared by user
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnNewShareLink.getText().toString());
                 Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
                 intent.putExtra("msg", "Enter Link To Share");
                 startActivity(intent);
@@ -61,6 +63,7 @@ public class FacebookTriggerActivity extends AppCompatActivity {
             }
             else if(v.getId()==R.id.btnNewSharePhoto){
                 //Trigger button on new photo shared by user
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnNewSharePhoto.getText().toString());
                 Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
                 intent.putExtra("msg", "image");
                 startActivity(intent);
@@ -68,6 +71,8 @@ public class FacebookTriggerActivity extends AppCompatActivity {
             }
             else if(v.getId()==R.id.btnShareLink){
                 //Action button to share a new link
+
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnShareLink.getText().toString());
                 Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
                 intent.putExtra("msg", "Enter Link To Share");
                 intent.putExtra("tag","then");
@@ -78,6 +83,7 @@ public class FacebookTriggerActivity extends AppCompatActivity {
             }
             else if(v.getId()==R.id.btnSharePhoto){
                 //Action button to share a new photo
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnSharePhoto.getText().toString());
                 Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
                 intent.putExtra("msg", "image");
                 intent.putExtra("tag","then");

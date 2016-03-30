@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.facebook.FacebookActivity;
 import android.g38.socialassist.CreateRecipeActivity;
 import android.g38.socialassist.HomeActivity;
@@ -63,6 +64,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "cAny");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cAny.getText().toString());
                 launchCreate();
             }
         });
@@ -72,6 +74,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "dAny");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dAny.getText().toString());
                 launchCreate();
             }
         });
@@ -81,6 +84,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "cSpecific");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cSpecific.getText().toString());
                 Intent intent = new Intent(DeviceTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Wifi Name");
                 startActivity(intent);
@@ -93,6 +97,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "dSpecific");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dSpecific.getText().toString());
                 Intent intent = new Intent(DeviceTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Wifi Name");
                 startActivity(intent);
@@ -105,6 +110,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "cBlue");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cBlue.getText().toString());
                 launchCreate();
             }
         });
@@ -114,6 +120,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "dBlue");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dBlue.getText().toString());
                 launchCreate();
             }
         });
@@ -123,17 +130,18 @@ public class DeviceTriggerActivity extends AppCompatActivity {
     }
 
     void thenChannel(){
-        Button onWifi=(Button)findViewById(R.id.btnWifiOn);
-        Button offWifi=(Button)findViewById(R.id.btnWifiOff);
-        Button mute=(Button)findViewById(R.id.btnMuteRingtone);
-        Button setVolume=(Button)findViewById(R.id.btnSetRingVolume);
-        Button onBluetooth=(Button)findViewById(R.id.btnBluetoothOn);
-        Button launchMaps=(Button)findViewById(R.id.btnMapsLaunch);
-        Button setWallpaper=(Button)findViewById(R.id.btnUpdateWallpaper);
+        final Button onWifi=(Button)findViewById(R.id.btnWifiOn);
+        final Button offWifi=(Button)findViewById(R.id.btnWifiOff);
+        final Button mute=(Button)findViewById(R.id.btnMuteRingtone);
+        final Button setVolume=(Button)findViewById(R.id.btnSetRingVolume);
+        final Button onBluetooth=(Button)findViewById(R.id.btnBluetoothOn);
+        final Button launchMaps=(Button)findViewById(R.id.btnMapsLaunch);
+        final Button setWallpaper=(Button)findViewById(R.id.btnUpdateWallpaper);
 
         onWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, onWifi.getText().toString());
                 ForCp.saveToCpForAction(getApplicationContext(), "onw");
                 ForCp.checkLaunch(getApplicationContext());
                 launchHome();
@@ -142,6 +150,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
         offWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, offWifi.getText().toString());
                 ForCp.saveToCpForAction(getApplicationContext(), "ofw");
                 ForCp.checkLaunch(getApplicationContext());
                 launchHome();
@@ -150,6 +159,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
         mute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, mute.getText().toString());
                 ForCp.saveToCpForAction(getApplicationContext(), "mut");
                 ForCp.checkLaunch(getApplicationContext());
                 launchHome();
@@ -158,6 +168,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
         onBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, onBluetooth.getText().toString());
                 ForCp.saveToCpForAction(getApplicationContext(), "onb");
                 ForCp.checkLaunch(getApplicationContext());
                 launchHome();
@@ -166,6 +177,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
         setVolume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, setVolume.getText().toString());
                 Intent intent = new Intent(DeviceTriggerActivity.this, UserInputThen.class);
                 intent.putExtra("msg", "Enter Ringer Volume");
                 intent.putExtra("tag", "vol");
@@ -176,6 +188,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
         setWallpaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, setWallpaper.getText().toString());
 
                 Intent intent = new Intent(DeviceTriggerActivity.this, UserInputThen.class);
                 intent.putExtra("msg", "image");
@@ -187,6 +200,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
         launchMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_device_channel, launchMaps.getText().toString());
                 ForCp.saveToCpForAction(getApplicationContext(), "map");
                 ForCp.checkLaunch(getApplicationContext());
                 launchHome();

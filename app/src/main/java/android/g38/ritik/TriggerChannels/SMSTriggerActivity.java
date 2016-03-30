@@ -2,6 +2,7 @@ package android.g38.ritik.TriggerChannels;
 
 import android.content.Intent;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.facebook.FacebookActivity;
 import android.g38.socialassist.CreateRecipeActivity;
 import android.g38.socialassist.UserInput;
@@ -39,6 +40,7 @@ public class SMSTriggerActivity extends AppCompatActivity {
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_sms_channel, btnSendSMS.getText().toString());
                 Intent intent = new Intent(SMSTriggerActivity.this, UserInputThen.class);
                 intent.putExtra("msg", "sms");
                 startActivity(intent);
@@ -50,6 +52,7 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSms");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSms.getText().toString());
                 startActivity(new Intent(SMSTriggerActivity.this, CreateRecipeActivity.class));
 
             }
@@ -59,6 +62,7 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSmsString");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSmsString.getText().toString());
                 Intent intent = new Intent(SMSTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Message to Search");
                 startActivity(intent);
@@ -70,6 +74,7 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSmsNumber");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSmsNumber.getText().toString());
                 Intent intent = new Intent(SMSTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Number to Search");
                 startActivity(intent);
