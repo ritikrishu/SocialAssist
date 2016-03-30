@@ -25,8 +25,11 @@ public class Tasks extends ContentProvider {
 
     static final public String PROVIDER_NAME = "android.g38.sanyam.contentprovider";
     static final public String URL = "content://" + PROVIDER_NAME + "/tasks";
+    static final public String URL_RECIPE = "content://" + PROVIDER_NAME + "/recipe";
     static final public Uri CONTENT_URI = Uri.parse(URL);
+    static final public Uri CONTENT_URI_FOR_RECIPE = Uri.parse(URL_RECIPE);
 
+    //FOR TABLE ONE
     static final public String _ID = "_id";
     static final public String extras = "extras";
     static final public String intent = "intent";
@@ -37,14 +40,28 @@ public class Tasks extends ContentProvider {
 
     private static HashMap<String, String> PROJECTION_MAP;
 
-    static final int STUDENTS = 1;
-    static final int STUDENT_ID = 2;
+    static final int TASKS = 1;
+    static final int TASKS_ID = 2;
+
+    //FOR TABLE RECIPE
+    static final public String IF = "if";
+    static final public String THEN = "then_col";
+    static final public String RECIPE_NAME = "recipe_name";
+    static final public String DATA = "data";
+    static final public String TIME = "time";
+    static final public String STATUS = "status";
+    static final public String BASE = "base";
+
+    static final int RECIPE = 3;
+    static final int RECIPE_ID = 4;
 
     static final UriMatcher uriMatcher;
     static{
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(PROVIDER_NAME, "tasks", STUDENTS);
-        uriMatcher.addURI(PROVIDER_NAME, "tasks/#", STUDENT_ID);
+        uriMatcher.addURI(PROVIDER_NAME, "tasks", TASKS);
+        uriMatcher.addURI(PROVIDER_NAME, "tasks/#", TASKS_ID);
+        uriMatcher.addURI(PROVIDER_NAME, "recipe", RECIPE);
+        uriMatcher.addURI(PROVIDER_NAME, "recipe/#", RECIPE_ID);
     }
 
     /**
@@ -53,12 +70,19 @@ public class Tasks extends ContentProvider {
     private SQLiteDatabase db;
     static final String DATABASE_NAME = "SA";
     static final String TABLE_NAME = "tasks";
+    static final String TABLE_NAME_RECIPE = "recipe";
     static final int DATABASE_VERSION = 1;
     static final String CREATE_DB_TABLE =
             " CREATE TABLE " + TABLE_NAME +
                     " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     " extras TEXT, " +" base TEXT, "+" state TEXT, "+" others TEXT, "+" actions TEXT, "+
                     " intent TEXT);";
+
+    static final String CREATE_DB_TABLE_RECIPE =
+            " CREATE TABLE " + TABLE_NAME_RECIPE +
+                    " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    " if TEXT, " +" then_col TEXT, "+" recipe_name TEXT, "+" data TEXT, "+" time TEXT, "+" base TEXT, "+
+                    " status TEXT);";
 
     /**
      * Helper class that actually creates and manages
@@ -73,11 +97,14 @@ public class Tasks extends ContentProvider {
         public void onCreate(SQLiteDatabase db)
         {
             db.execSQL(CREATE_DB_TABLE);
+            db.execSQL(CREATE_DB_TABLE_RECIPE);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
+            onCreate(db);
+            db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME_RECIPE);
             onCreate(db);
         }
     }
@@ -97,22 +124,27 @@ public class Tasks extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        /**
-         * Add a new student record
-         */
-        long rowID = db.insert(	TABLE_NAME, "", values);
-
-        /**
-         * If record is added successfully
-         */
-
-        if (rowID > 0)
-        {
-            Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
-            getContext().getContentResolver().notifyChange(_uri, null);
-            return _uri;
+        Uri _uri = null;
+        switch (uriMatcher.match(uri)){
+            case TASKS:
+                long _ID1 = db.insert(TABLE_NAME, "", values);
+                //---if added successfully---
+                if (_ID1 > 0) {
+                    _uri = ContentUris.withAppendedId(CONTENT_URI, _ID1);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                }
+                break;
+            case RECIPE:
+                long _ID2 = db.insert(TABLE_NAME_RECIPE, "", values);
+                //---if added successfully---
+                if (_ID2 > 0) {
+                    _uri = ContentUris.withAppendedId(CONTENT_URI_FOR_RECIPE, _ID2);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                }
+                break;
+            default: throw new SQLException("Failed to insert row into " + uri);
         }
-        throw new SQLException("Failed to add a record into " + uri);
+        return _uri;
     }
 
     @Override
@@ -121,13 +153,26 @@ public class Tasks extends ContentProvider {
         qb.setTables(TABLE_NAME);
 
         switch (uriMatcher.match(uri)) {
-            case STUDENTS:
+            case TASKS:
+                qb.setTables(TABLE_NAME);
                 qb.setProjectionMap(PROJECTION_MAP);
                 break;
 
-            case STUDENT_ID:
+            case TASKS_ID:
+                qb.setTables(TABLE_NAME);
                 qb.appendWhere( _ID + "=" + uri.getPathSegments().get(1));
                 break;
+
+            case RECIPE:
+                qb.setTables(TABLE_NAME_RECIPE);
+                qb.setProjectionMap(PROJECTION_MAP);
+                break;
+
+            case RECIPE_ID:
+                qb.setTables(TABLE_NAME_RECIPE);
+                qb.appendWhere( _ID + "=" + uri.getPathSegments().get(1));
+                break;
+
 
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
@@ -148,13 +193,23 @@ public class Tasks extends ContentProvider {
         int count = 0;
 
         switch (uriMatcher.match(uri)){
-            case STUDENTS:
+            case TASKS:
                 count = db.delete(TABLE_NAME, selection, selectionArgs);
                 break;
 
-            case STUDENT_ID:
+            case TASKS_ID:
                 String id = uri.getPathSegments().get(1);
                 count = db.delete( TABLE_NAME, _ID +  " = " + id +
+                        (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
+                break;
+
+            case RECIPE:
+                count = db.delete(TABLE_NAME_RECIPE, selection, selectionArgs);
+                break;
+
+            case RECIPE_ID:
+                String idR = uri.getPathSegments().get(1);
+                count = db.delete( TABLE_NAME_RECIPE, _ID +  " = " + idR +
                         (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
                 break;
 
@@ -171,12 +226,21 @@ public class Tasks extends ContentProvider {
         int count = 0;
 
         switch (uriMatcher.match(uri)){
-            case STUDENTS:
+            case TASKS:
                 count = db.update(TABLE_NAME, values, selection, selectionArgs);
                 break;
 
-            case STUDENT_ID:
+            case TASKS_ID:
                 count = db.update(TABLE_NAME, values, _ID + " = " + uri.getPathSegments().get(1) +
+                        (!TextUtils.isEmpty(selection) ? " AND (" +selection + ')' : ""), selectionArgs);
+                break;
+
+            case RECIPE:
+                count = db.update(TABLE_NAME_RECIPE, values, selection, selectionArgs);
+                break;
+
+            case RECIPE_ID:
+                count = db.update(TABLE_NAME_RECIPE, values, _ID + " = " + uri.getPathSegments().get(1) +
                         (!TextUtils.isEmpty(selection) ? " AND (" +selection + ')' : ""), selectionArgs);
                 break;
 
@@ -190,17 +254,18 @@ public class Tasks extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         switch (uriMatcher.match(uri)){
-            /**
-             * Get all student records
-             */
-            case STUDENTS:
-                return "vnd.android.cursor.dir/vnd.example.students";
 
-            /**
-             * Get a particular student
-             */
-            case STUDENT_ID:
-                return "vnd.android.cursor.item/vnd.example.students";
+            case TASKS:
+                return "vnd.android.cursor.dir/vnd.example.tasks";
+
+            case TASKS_ID:
+                return "vnd.android.cursor.item/vnd.example.tasks";
+
+            case RECIPE:
+                return "vnd.android.cursor.dir/vnd.example.recipe";
+
+            case RECIPE_ID:
+                return "vnd.android.cursor.item/vnd.example.recipe";
 
             default:
                 throw new IllegalArgumentException("Unsupported URI: " + uri);

@@ -1,6 +1,7 @@
 package android.g38.ritik.TriggerChannels;
 
 import android.content.Intent;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.facebook.FacebookActivity;
 import android.g38.sanyam.twitter.TweetActivity;
 import android.g38.socialassist.R;
@@ -42,13 +43,14 @@ public class TwitterTriggerActivity extends AppCompatActivity {
         if(getIntent().getBooleanExtra("IF",true)) {
             tvTwitter.setText(R.string.title_activity_select_trigger);
             tweet.setText("New tweet by you");
+            RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_twitter_channel, tweet.getText().toString());
 
         }
         else{
             tvTwitter.setText(R.string.select_action);
             tweet.setText("tweet by you");
             intent.putExtra("tag", "then");
-
+            RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_twitter_channel, tweet.getText().toString());
         }
     }
 

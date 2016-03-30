@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.facebook.FacebookActivity;
 import android.g38.socialassist.CreateRecipeActivity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "pluggedIn");
+                RecipeCP.setIf(getApplicationContext(),""+R.drawable.ic_battery_channel,pluggedIn.getText().toString());
                 launchCreate();
 
             }
@@ -48,6 +50,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "pluggedOut");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_battery_channel, pluggedOut.getText().toString());
                 launchCreate();
             }
         });
@@ -56,6 +59,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "below15");
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_battery_channel, below15.getText().toString());
                 launchCreate();
             }
         });
