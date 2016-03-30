@@ -1,8 +1,15 @@
 package android.g38.ritik.Gmail;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.g38.socialassist.R;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -23,6 +30,7 @@ import java.util.Properties;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -34,34 +42,51 @@ public class ScheduleMail extends BroadcastReceiver {
     private static final String[] SCOPES = {GmailScopes.MAIL_GOOGLE_COM};
     private GoogleAccountCredential mCredential;
     @Override
-    public void onReceive(Context context, final Intent intent) {
-        Toast.makeText(context,intent.getStringExtra("accountName"),Toast.LENGTH_LONG).show();
-        mCredential = GoogleAccountCredential.usingOAuth2(
-                context, Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff())
-                .setSelectedAccountName("ritikrishu@gmail.com");
-        HttpTransport transport = AndroidHttp.newCompatibleTransport();
-        JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-        mService = new com.google.api.services.gmail.Gmail.Builder(
-                transport, jsonFactory, mCredential)
-                .setApplicationName("Gmail API ")
-                .build();
-        new Thread() {
-            @Override
-            public void run() {
-                try {
+    public void onReceive(final Context context, final Intent intent) {
+        SharedPreferences preferences = context.getSharedPreferences("accountName",Context.MODE_PRIVATE);
+
+        if(isNetworkAvailable(context)) {
+            mCredential = GoogleAccountCredential.usingOAuth2(
+                    context, Arrays.asList(SCOPES))
+                    .setBackOff(new ExponentialBackOff())
+                    .setSelectedAccountName(preferences.getString("accountName",null));
+            HttpTransport transport = AndroidHttp.newCompatibleTransport();
+            JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+            mService = new com.google.api.services.gmail.Gmail.Builder(
+                    transport, jsonFactory, mCredential)
+                    .setApplicationName("Gmail API ")
+                    .build();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
                         sendMessage(createMessageWithEmail(createEmail(intent.getStringExtra("to"), "me",
-                            intent.getStringExtra("sub"),
-                            intent.getStringExtra("body"))));
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                                intent.getStringExtra("sub"),
+                                intent.getStringExtra("body"), context)));
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("Mail schedule failed!!!").setContentText("Provided email ID is not valid").setAutoCancel(true);
+
+                        NotificationManager notificationmanager = (NotificationManager) context
+                                .getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationmanager.notify(0, builder.build());
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }.start();
+            }.start();
+        }
+        else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Mail schedule failed!!!").setContentText("No internet connection found!!!").setAutoCancel(true);
+
+            NotificationManager notificationmanager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationmanager.notify(0, builder.build());
+        }
     }
-    public static Message createMessageWithEmail(MimeMessage email)
+    private static Message createMessageWithEmail(MimeMessage email)
             throws MessagingException, IOException {
         final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         email.writeTo(bytes);
@@ -74,23 +99,40 @@ public class ScheduleMail extends BroadcastReceiver {
 
     }
 
-    public static void sendMessage(Message message)
+    private static void sendMessage(Message message)
             throws MessagingException, IOException {
         if(mService != null)
             mService.users().messages().send("me", message).execute();
     }
 
-    public static MimeMessage createEmail(String to, String from, String subject,
-                                          String bodyText) throws MessagingException {
+    private static MimeMessage createEmail(String to, String from, String subject,
+                                          String bodyText, Context context) throws MessagingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress(from));
-        email.addRecipient(javax.mail.Message.RecipientType.TO,
-                new InternetAddress(to));
+        String[] recipients = extractEmailIds(to);
+        for(String emailID : recipients)
+                email.addRecipient(javax.mail.Message.RecipientType.TO,
+                        new InternetAddress(emailID));
         email.setSubject(subject);
         email.setContent(bodyText, "text/html; charset=ISO-8859-1");
         email.setText(bodyText);
         return email;
+    }
+
+    private static String[] extractEmailIds(String to){
+        String[] ret = to.split(",");
+        for (int i = 0; i < ret.length; i++){
+            ret[i] = ret[i].trim();
+        }
+        return ret;
+    }
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 }
