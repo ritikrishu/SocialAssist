@@ -31,6 +31,7 @@ public class ForCp {
         forCp= context.getSharedPreferences("forCp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = forCp.edit();
         editor.putBoolean("adddone", true);
+        editor.putString("base","");
         editor.commit();
     }
 
@@ -95,6 +96,7 @@ public class ForCp {
 
             int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
+            setDone(context);
             //uncomment <code>
             //  SharedPreferences.Editor editor = forCp.edit();
             //editor.putBoolean("adddone",true);
@@ -117,7 +119,9 @@ public class ForCp {
             String mSelectionClause = Tasks.base +  " LIKE ?";
             String[] mSelectionArgs = {forCp.getString("base","")};
             int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
+            setDone(context);
 
         }
     }

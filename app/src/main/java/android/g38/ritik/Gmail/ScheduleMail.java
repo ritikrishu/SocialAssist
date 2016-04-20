@@ -60,9 +60,11 @@ public class ScheduleMail extends BroadcastReceiver {
                 @Override
                 public void run() {
                     try {
-                        sendMessage(createMessageWithEmail(createEmail(intent.getStringExtra("to"), "me",
-                                intent.getStringExtra("sub"),
-                                intent.getStringExtra("body"), context)));
+                        Log.e("sanyam",intent.getStringExtra("extras"));
+                        String []mail=intent.getStringExtra("extras").split("---");
+                        sendMessage(createMessageWithEmail(createEmail(mail[0], "me",
+                                mail[1],
+                                mail[2], context)));
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

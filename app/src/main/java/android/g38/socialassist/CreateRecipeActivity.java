@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Long2;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,6 +24,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        SharedPreferences sharedPreferences = getSharedPreferences("forCp",MODE_PRIVATE);
+        Toast.makeText(getApplicationContext(),""+sharedPreferences.getString("base","blank"), Toast.LENGTH_SHORT).show();
 
 
 //        Cursor c = managedQuery(Tasks.CONTENT_URI, null, null, null, null);
@@ -37,6 +41,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
 //                        Toast.LENGTH_SHORT).show();
 //            } while (c.moveToNext());
 //        }
+
+
 
 
     }

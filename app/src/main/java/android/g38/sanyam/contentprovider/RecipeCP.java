@@ -26,7 +26,7 @@ public class RecipeCP {
         forCp= context.getSharedPreferences("recipe", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = forCp.edit();
         editor.putString("then",image);
-        editor.putString("recipeName",data+" WHEN "+forCp.getString("recipeName",""));
+        editor.putString("recipeName",data+" When "+forCp.getString("recipeName",""));
         editor.commit();
     }
     static public void  setExtra(Context context,String data){
@@ -36,7 +36,7 @@ public class RecipeCP {
         editor.commit();
     }
 
-    static public Cursor getData(Context context,String data){
+    static public Cursor getData(Context context){
         return  context.getContentResolver().query(Tasks.CONTENT_URI_FOR_RECIPE, null, null, null, null);
     }
 

@@ -276,6 +276,9 @@ public class ChannelsActivity extends AppCompatActivity {
 
                 twitterLoginButton.setVisibility(View.GONE);
                 ivtwitter.setVisibility(View.VISIBLE);
+                TextView tv = (TextView) findViewById(R.id.tv);
+                tv.setVisibility(View.VISIBLE);
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -302,6 +305,8 @@ public class ChannelsActivity extends AppCompatActivity {
                         editor.apply();
                         tvGoogleButton.setVisibility(View.GONE);
                         ivGoogleButton.setVisibility(View.VISIBLE);
+                        TextView tv = (TextView) findViewById(R.id.tv);
+                        tv.setVisibility(View.VISIBLE);
                     }
                 } else if (resultCode == RESULT_CANCELED) {
                     Toast.makeText(ChannelsActivity.this,"Account unspecified",Toast.LENGTH_LONG).show();
@@ -389,6 +394,8 @@ public class ChannelsActivity extends AppCompatActivity {
         else{
             tvGoogleButton.setVisibility(View.GONE);
             ivGoogleButton.setVisibility(View.VISIBLE);
+            TextView tv = (TextView) findViewById(R.id.tv);
+            tv.setVisibility(View.VISIBLE);
         }
     }
 }

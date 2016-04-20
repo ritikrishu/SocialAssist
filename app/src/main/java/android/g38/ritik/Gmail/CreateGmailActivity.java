@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.g38.sanyam.contentprovider.ForCp;
 import android.g38.socialassist.HomeActivity;
 import android.g38.socialassist.R;
 import android.os.Bundle;
@@ -44,19 +45,23 @@ public class CreateGmailActivity extends AppCompatActivity {
                 else if (body.getText().toString() == null)
                     Toast.makeText(CreateGmailActivity.this, "Body is empty", Toast.LENGTH_SHORT).show();
                 else {
-                    SharedPreferences settings = getSharedPreferences("accountName", MODE_PRIVATE);
-                    Intent intent = new Intent(CreateGmailActivity.this, ScheduleMail.class);
-                    intent.putExtra("to", to.getText().toString());
-                    intent.putExtra("sub", sub.getText().toString());
-                    intent.putExtra("body", body.getText().toString());
-                   // intent.putExtra("accountName", settings.getString("accountName", null));
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    Long time = new GregorianCalendar().getTimeInMillis() + 10 * 1000;
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(CreateGmailActivity.this, 1,
-                            intent, PendingIntent.FLAG_UPDATE_CURRENT));
-                    workDone = true;
+//                    SharedPreferences settings = getSharedPreferences("accountName", MODE_PRIVATE);
+//                    Intent intent = new Intent(CreateGmailActivity.this, ScheduleMail.class);
+//                    intent.putExtra("to", to.getText().toString());
+//                    intent.putExtra("sub", sub.getText().toString());
+//                    intent.putExtra("body", body.getText().toString());
+//                   // intent.putExtra("accountName", settings.getString("accountName", null));
+//                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                    Long time = new GregorianCalendar().getTimeInMillis() + 10 * 1000;
+//                    alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(CreateGmailActivity.this, 1,
+//                            intent, PendingIntent.FLAG_UPDATE_CURRENT));
+//                    workDone = true;
+//                    startActivity(new Intent(CreateGmailActivity.this, HomeActivity.class));
+//                    Toast.makeText(CreateGmailActivity.this, "Mail successfully scheduled", Toast.LENGTH_LONG).show();
+                    String extra;
+                    extra=to.getText().toString()+"---"+sub.getText().toString()+"---"+body.getText().toString();
+                    ForCp.saveToCp(getApplicationContext(), extra, "android.g38.ritik.Gmail.ScheduleMail");
                     startActivity(new Intent(CreateGmailActivity.this, HomeActivity.class));
-                    Toast.makeText(CreateGmailActivity.this, "Mail successfully scheduled", Toast.LENGTH_LONG).show();
                 }
             }
         });

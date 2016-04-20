@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.R;
 import android.graphics.Bitmap;
@@ -64,6 +65,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
     void check(Cursor cursor,Context context){
         flag = cursor.getString(cursor.getColumnIndex("state")).trim();
+        RecipeCP.setStatusDone(context,cursor.getString(cursor.getColumnIndex(Tasks.base)));
         if (flag.equalsIgnoreCase("true")) {
             schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
                     cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(), context);

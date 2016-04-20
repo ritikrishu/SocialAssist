@@ -3,7 +3,9 @@ package android.g38.socialassist;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.Tasks;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +54,21 @@ public class HomeActivity extends AppCompatActivity
             editor.putBoolean("created", true);
             editor.commit();
 
+        }
+
+
+        Cursor c = managedQuery(Tasks.CONTENT_URI_FOR_RECIPE, null, null, null, null);
+
+        if (c.moveToFirst()) {
+            do{
+                Toast.makeText(this,
+                        c.getString(c.getColumnIndex(Tasks.IF)) +
+                                ", " + c.getString(c.getColumnIndex(Tasks.THEN)) +
+                                ", " + c.getString(c.getColumnIndex(Tasks.RECIPE_NAME))+
+                                ", " + c.getString(c.getColumnIndex(Tasks.DATA))+
+                                ", " + c.getString(c.getColumnIndex(Tasks.BASE)),
+                        Toast.LENGTH_SHORT).show();
+            } while (c.moveToNext());
         }
     }
 
