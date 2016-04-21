@@ -12,9 +12,5 @@
     tools:context="android.g38.socialassist.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/tvHello"/>
+
 </RelativeLayout>
