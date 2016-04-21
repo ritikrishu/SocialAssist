@@ -99,8 +99,8 @@ String str="";
             } while (c.moveToNext());
         }
 
-        TextView textView=(TextView)findViewById(R.id.tvHello);
-        textView.setText(str);
+//        TextView textView=(TextView)findViewById(R.id.tvHello);
+//        textView.setText(str);
     }
 
     @Override
