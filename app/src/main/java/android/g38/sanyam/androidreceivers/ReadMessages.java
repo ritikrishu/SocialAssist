@@ -21,17 +21,14 @@ import java.util.GregorianCalendar;
 
 public class ReadMessages extends BroadcastReceiver {
 
-    static Cursor cursor;
-    String newSmsFlag = "";
-    String newSmsStringFlag = "";
-    String newSmsNumberFlag = "";
-    Intent intentPost;
     final SmsManager sms = SmsManager.getDefault();
+    Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         final Bundle bundle = intent.getExtras();
-        cursor = context.getContentResolver().query(Tasks.CONTENT_URI, null, null, null, null);
+        this.context=context;
+        CursorFunctions cursorFunctions=new CursorFunctions(context);
         try {
             if (bundle != null) {
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
@@ -40,33 +37,10 @@ public class ReadMessages extends BroadcastReceiver {
                     String phoneNumber = currentMessage.getDisplayOriginatingAddress();
                     String senderNum = phoneNumber;
                     String message = currentMessage.getDisplayMessageBody();
+                    cursorFunctions.loadCursor("newSms");
+                    cursorFunctions.loadCursor("newSmsString");
+                    cursorFunctions.loadCursor("newSmsNumber");
 
-                    cursor.moveToFirst();
-                    cursor.move(3);
-                    newSmsFlag = cursor.getString(cursor.getColumnIndex(Tasks.state)).trim();
-                    if(newSmsFlag.equalsIgnoreCase("true")){
-
-                        schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
-                                cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),context);
-                    }
-                    cursor.moveToNext();
-                    newSmsStringFlag=cursor.getString(cursor.getColumnIndex(Tasks.state)).trim();
-                    if(newSmsStringFlag.equalsIgnoreCase("true")){
-                        if(message.contains(cursor.getString(cursor.getColumnIndex(Tasks.others)))){
-
-                            schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
-                                    cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),context);
-                        }
-                    }
-                    cursor.moveToNext();
-                    newSmsNumberFlag=cursor.getString(cursor.getColumnIndex(Tasks.state)).trim();
-                    if(newSmsNumberFlag.equalsIgnoreCase("true")){
-                        if(senderNum.contains(cursor.getString(cursor.getColumnIndex(Tasks.others)))){
-
-                            schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
-                                    cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),context);
-                        }
-                    }
 
                 }
             }
@@ -76,17 +50,5 @@ public class ReadMessages extends BroadcastReceiver {
 
         }
     }
-    void schedule(String className,String extras,Context context){
-        try {
-            intentPost = new Intent(context, Class.forName(className));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        intentPost.putExtra("extras", "" + extras);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Long time = new GregorianCalendar().getTimeInMillis() + 500;
-        intentPost.setData(Uri.parse("myalarms://" + Math.random()));
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,
-                intentPost, PendingIntent.FLAG_UPDATE_CURRENT));
-    }
+
 }

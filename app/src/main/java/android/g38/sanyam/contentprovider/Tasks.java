@@ -44,6 +44,7 @@ public class Tasks extends ContentProvider {
     static final int TASKS_ID = 2;
 
     //FOR TABLE RECIPE
+
     static final public String IF = "if";
     static final public String THEN = "then_col";
     static final public String RECIPE_NAME = "recipe_name";

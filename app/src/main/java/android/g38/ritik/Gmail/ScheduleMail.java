@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.g38.sanyam.Services.Notify;
 import android.g38.socialassist.R;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -44,7 +45,7 @@ public class ScheduleMail extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         SharedPreferences preferences = context.getSharedPreferences("accountName",Context.MODE_PRIVATE);
-
+        final Notify notify=new Notify(context);
         if(isNetworkAvailable(context)) {
             mCredential = GoogleAccountCredential.usingOAuth2(
                     context, Arrays.asList(SCOPES))
@@ -56,6 +57,7 @@ public class ScheduleMail extends BroadcastReceiver {
                     transport, jsonFactory, mCredential)
                     .setApplicationName("Gmail API ")
                     .build();
+            final String[] data = {""};
             new Thread() {
                 @Override
                 public void run() {
@@ -65,27 +67,22 @@ public class ScheduleMail extends BroadcastReceiver {
                         sendMessage(createMessageWithEmail(createEmail(mail[0], "me",
                                 mail[1],
                                 mail[2], context)));
+                        data[0] ="Subject:"+mail[1]+"\n"+mail[2];
+                        notify.buildNotification("Mail Sent.","TO:"+mail[0],intent.getStringExtra("rId"), data[0]);
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
-                                .setContentTitle("Mail schedule failed!!!").setContentText("Provided email ID is not valid").setAutoCancel(true);
+                        notify.buildNotification("Could Not Mail","Provided email ID is not valid",intent.getStringExtra("rId"), data[0]);
 
-                        NotificationManager notificationmanager = (NotificationManager) context
-                                .getSystemService(Context.NOTIFICATION_SERVICE);
-                        notificationmanager.notify(0, builder.build());
                         e.printStackTrace();
                     }
                 }
             }.start();
         }
         else {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Mail schedule failed!!!").setContentText("No internet connection found!!!").setAutoCancel(true);
-
-            NotificationManager notificationmanager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationmanager.notify(0, builder.build());
+            String []mail=intent.getStringExtra("extras").split("---");
+            String data ="Subject:"+mail[1]+"\n"+mail[2];
+            notify.buildNotification("Could Not Mail","No Internet Connection Available",intent.getStringExtra("rId"),data);
         }
     }
     private static Message createMessageWithEmail(MimeMessage email)

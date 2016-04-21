@@ -48,17 +48,10 @@ public class RecipeCP {
         values.put(Tasks.RECIPE_NAME, forCp.getString("recipeName",""));
         values.put(Tasks.DATA, forCp.getString("data", ""));
         values.put(Tasks.BASE, base);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        values.put(Tasks.TIME, df.format(Calendar.getInstance().getTime()));
+        values.put(Tasks.TIME, "");
         values.put(Tasks.STATUS, "pending");
         Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI_FOR_RECIPE, values);
 
     }
-    public static void setStatusDone(Context context,String base){
-        ContentValues values = new ContentValues();
-        values.put(Tasks.STATUS, "done");
-        String mSelectionClause = Tasks.BASE +  " LIKE ?";
-        String[] mSelectionArgs = {base};
-        int c = context.getContentResolver().update(Tasks.CONTENT_URI_FOR_RECIPE, values, mSelectionClause, mSelectionArgs);
-    }
+
 }

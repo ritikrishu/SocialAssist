@@ -76,7 +76,8 @@ public class ForCp {
     static public void   checkLaunch(Context context){
         if(ForCp.checkLaunchFlag(context)){
             Post.schedule(ForCp.getClassName(context),
-                    ForCp.getextra(context), context);
+                    ForCp.getextra(context), context,
+            context.getContentResolver().query(Tasks.CONTENT_URI,null,null,null,null).getCount());
 
         }
     }
@@ -91,10 +92,11 @@ public class ForCp {
             values.put(Tasks.state, "true");
             values.put(Tasks.others, forCp.getString("data",""));
             values.put(Tasks.actions,forCp.getString("actions",""));
-            String mSelectionClause = Tasks.base +  " LIKE ?";
-            String[] mSelectionArgs = {forCp.getString("base","")};
-
-            int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+//            String mSelectionClause = Tasks.base +  " LIKE ?";
+//            String[] mSelectionArgs = {forCp.getString("base","")};
+//
+//            int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+            context.getContentResolver().insert(Tasks.CONTENT_URI,values);
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
             setDone(context);
             //uncomment <code>
@@ -118,7 +120,8 @@ public class ForCp {
 
             String mSelectionClause = Tasks.base +  " LIKE ?";
             String[] mSelectionArgs = {forCp.getString("base","")};
-            int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+            //int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+            context.getContentResolver().insert(Tasks.CONTENT_URI,values);
 
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
             setDone(context);
@@ -135,67 +138,67 @@ public class ForCp {
         int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
     }
 
-    static public void insert(Context context){
-        ContentValues values = new ContentValues();
-        values.put(Tasks.base, "pluggedIn");
-        values.put(Tasks.state, "false");
-        Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "pluggedOut");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "below15");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "newSms");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "newSmsString");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "newSmsNumber");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "cAny");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "dAny");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "cSpecific");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "dSpecific");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "cBlue");
-        values.put(Tasks.state, "false");
-        uri =context. getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "dBlue");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "link");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "image");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-        values = new ContentValues();
-        values.put(Tasks.base, "tweet");
-        values.put(Tasks.state, "false");
-        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-    }
+//    static public void insert(Context context){
+//        ContentValues values = new ContentValues();
+////        values.put(Tasks.base, "pluggedIn");
+////        values.put(Tasks.state, "false");
+////        Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "pluggedOut");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "below15");
+////        values.put(Tasks.state, "false");
+////        Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "newSms");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "newSmsString");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "newSmsNumber");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "cAny");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "dAny");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "cSpecific");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "dSpecific");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "cBlue");
+////        values.put(Tasks.state, "false");
+////        uri =context. getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "dBlue");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "link");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "image");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+////        values = new ContentValues();
+////        values.put(Tasks.base, "tweet");
+////        values.put(Tasks.state, "false");
+////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
+//    }
 
 }

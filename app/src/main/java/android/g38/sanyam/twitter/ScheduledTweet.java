@@ -9,7 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.g38.sanyam.Services.Notify;
 import android.g38.sanyam.androidreceivers.ActionsReceiver;
+import android.g38.sanyam.androidreceivers.CursorFunctions;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.R;
 import android.net.ConnectivityManager;
@@ -53,24 +55,25 @@ public class ScheduledTweet extends BroadcastReceiver
     static Cursor cursor;
     String flag = "";
     Intent intentPost;
+    String mSelectionClause = Tasks.base +  " LIKE ?";
+    String[] mSelectionArgs = {""};
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Notify notify=new Notify(context);
+        extras = intent.getExtras();
+        initTwitterConfig();
+        CursorFunctions cursorFunctions = new CursorFunctions(context);
         if (!isNetworkAvailable(context)) {
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Could Not Tweet").setContentText("No Internet Connection Available").setAutoCancel(true);
+            notify.buildNotification("Unable To Tweet","No Internet Connection Available",extras.getString("rId"),status);
 
-            NotificationManager notificationmanager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationmanager.notify(0, builder.build());
         }
         else{
-            extras = intent.getExtras();
+
             this.context=context;
             this.intent=intent;
-            initTwitterConfig();
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             if(TextUtils.isEmpty(consumerKey)||TextUtils.isEmpty(consumerSecret)){
@@ -78,17 +81,12 @@ public class ScheduledTweet extends BroadcastReceiver
             }
             sharedPreferences=context.getSharedPreferences(PREF_NAME, 0);
             new Tweet().execute("" + status);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Tweeted").setContentText(status).setAutoCancel(true);
+            notify.buildNotification("Tweeted",extras.getString(status),extras.getString("rId"),status);
 
-            NotificationManager notificationmanager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationmanager.notify(0, builder.build());
-            cursor = context.getContentResolver().query(Tasks.CONTENT_URI, null, null, null, null);
-            cursor.moveToFirst();
-            cursor.move(14);
-            check(cursor, context);
+
+
         }
+        cursorFunctions.loadCursorForFb("tweet");
 
 
 
@@ -111,53 +109,62 @@ public class ScheduledTweet extends BroadcastReceiver
                 .getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
-    void check(Cursor cursor,Context context){
-        flag = cursor.getString(cursor.getColumnIndex("state")).trim();
-        if (flag.equalsIgnoreCase("true")) {
-            schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
-                    cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(), context);
-            setStateToFalse(context,cursor.getString(cursor.getColumnIndex(Tasks.base)));
-        } else if (flag.equalsIgnoreCase("action")) {
-            setActions(cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),
-                    cursor.getString(cursor.getColumnIndex(Tasks.actions)).trim(), context);
-            setStateToFalse(context, cursor.getString(cursor.getColumnIndex(Tasks.base)));
-        }
-    }
-
-    void schedule(String className, String extras, Context context) {
-        try {
-            intentPost = new Intent(context, Class.forName(className));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        intentPost.putExtra("extras", "" + extras);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Long time = new GregorianCalendar().getTimeInMillis() + 200;
-        intentPost.setData(Uri.parse("myalarms://" + time));
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,
-                intentPost, PendingIntent.FLAG_UPDATE_CURRENT));
-    }
-
-
-    void setActions(String extras, String actions, Context context) {
-        intentPost = new Intent(context, ActionsReceiver.class);
-        intentPost.putExtra("extras", "" + extras);
-        intentPost.putExtra("actions", "" + actions);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Long time = new GregorianCalendar().getTimeInMillis() + 200;
-        intentPost.setData(Uri.parse("myalarms://" + time));
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,
-                intentPost, PendingIntent.FLAG_UPDATE_CURRENT));
-    }
-
-    void setStateToFalse(Context context,String base){
-        ContentValues values = new ContentValues();
-        values.put(Tasks.base, base);
-        values.put(Tasks.state, "false");
-        String mSelectionClause = Tasks.base +  " LIKE ?";
-        String[] mSelectionArgs = {base};
-        int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
-    }
+//    public void loadCursor(String base){
+//        mSelectionArgs[0] = base;
+//        cursor = context.getContentResolver().query(Tasks.CONTENT_URI, null, mSelectionClause, mSelectionArgs, null);
+//        if(!cursor.moveToFirst())
+//            return;
+//        do{
+//            check(cursor);
+//        }while (cursor.moveToNext());
+//    }
+//    void check(Cursor cursor){
+//        flag = cursor.getString(cursor.getColumnIndex("state")).trim();
+//        if (flag.equalsIgnoreCase("true")) {
+//            schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
+//                    cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(), context);
+//            setStateToFalse(context,cursor.getString(cursor.getColumnIndex(Tasks.base)));
+//        } else if (flag.equalsIgnoreCase("action")) {
+//            setActions(cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),
+//                    cursor.getString(cursor.getColumnIndex(Tasks.actions)).trim(), context);
+//            setStateToFalse(context, cursor.getString(cursor.getColumnIndex(Tasks.base)));
+//        }
+//    }
+//
+//    void schedule(String className, String extras, Context context) {
+//        try {
+//            intentPost = new Intent(context, Class.forName(className));
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        intentPost.putExtra("extras", "" + extras);
+//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        Long time = new GregorianCalendar().getTimeInMillis() + 200;
+//        intentPost.setData(Uri.parse("myalarms://" + time));
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,
+//                intentPost, PendingIntent.FLAG_UPDATE_CURRENT));
+//    }
+//
+//
+//    void setActions(String extras, String actions, Context context) {
+//        intentPost = new Intent(context, ActionsReceiver.class);
+//        intentPost.putExtra("extras", "" + extras);
+//        intentPost.putExtra("actions", "" + actions);
+//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        Long time = new GregorianCalendar().getTimeInMillis() + 200;
+//        intentPost.setData(Uri.parse("myalarms://" + time));
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,
+//                intentPost, PendingIntent.FLAG_UPDATE_CURRENT));
+//    }
+//
+//    void setStateToFalse(Context context,String base){
+//        ContentValues values = new ContentValues();
+//        values.put(Tasks.base, base);
+//        values.put(Tasks.state, "false");
+//        String mSelectionClause = Tasks.base +  " LIKE ?";
+//        String[] mSelectionArgs = {base};
+//        int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
+//    }
 
     class Tweet extends AsyncTask<String,String,Void> {
 

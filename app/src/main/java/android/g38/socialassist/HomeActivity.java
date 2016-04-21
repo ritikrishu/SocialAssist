@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.g38.sanyam.DAO.RecipeHistory;
 import android.g38.sanyam.contentprovider.ForCp;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
@@ -47,29 +49,58 @@ public class HomeActivity extends AppCompatActivity
 
 
         //code for creating the state checker CP.
-        SharedPreferences sc = getSharedPreferences("sc", Context.MODE_PRIVATE);
-        if(!(sc.getBoolean("created",false))){
-            ForCp.insert(getApplicationContext());
-            SharedPreferences.Editor editor=sc.edit();
-            editor.putBoolean("created", true);
-            editor.commit();
+//        SharedPreferences sc = getSharedPreferences("sc", Context.MODE_PRIVATE);
+//        if(!(sc.getBoolean("created",false))){
+//            ForCp.insert(getApplicationContext());
+//            SharedPreferences.Editor editor=sc.edit();
+//            editor.putBoolean("created", true);
+//            editor.commit();
+//
+//        }
 
-        }
 
+      //  Cursor c = managedQuery(Tasks.CONTENT_URI, null, null, null, null);
+String str="";
+//        if (c.moveToFirst()) {
+//            do{
+//                str+=c.getString(c.getColumnIndex(Tasks._ID)) +
+//                        ", " +c.getString(c.getColumnIndex(Tasks.base)) +
+//                        ", " + c.getString(c.getColumnIndex(Tasks.state)) +
+//                        ", " + c.getString(c.getColumnIndex(Tasks.intent))+
+//                        ", " + c.getString(c.getColumnIndex(Tasks.extras))+
+//                        ", " + c.getString(c.getColumnIndex(Tasks.others))+"\n";
+//
+//            } while (c.moveToNext());
+//        }
+//        c = managedQuery(Tasks.CONTENT_URI_FOR_RECIPE, null, null, null, null);
+//        if (c.moveToFirst()) {
+//            do{
+//                str+=c.getString(c.getColumnIndex(Tasks._ID)) +
+//                        ", " +c.getString(c.getColumnIndex(Tasks.RECIPE_NAME)) +
+//                        ", " + c.getString(c.getColumnIndex(Tasks.DATA)) +
+//                        ", " + c.getString(c.getColumnIndex(Tasks.STATUS))+
+//                        ", " + c.getString(c.getColumnIndex(Tasks.TIME)) +"\n";
+//
+//            } while (c.moveToNext());
+//        }
+        RecipeHistory recipeHistory = new RecipeHistory(getApplicationContext());
 
-        Cursor c = managedQuery(Tasks.CONTENT_URI_FOR_RECIPE, null, null, null, null);
-
+        Cursor c=recipeHistory.getData();
         if (c.moveToFirst()) {
             do{
-                Toast.makeText(this,
-                        c.getString(c.getColumnIndex(Tasks.IF)) +
-                                ", " + c.getString(c.getColumnIndex(Tasks.THEN)) +
-                                ", " + c.getString(c.getColumnIndex(Tasks.RECIPE_NAME))+
-                                ", " + c.getString(c.getColumnIndex(Tasks.DATA))+
-                                ", " + c.getString(c.getColumnIndex(Tasks.BASE)),
-                        Toast.LENGTH_SHORT).show();
+                str+=c.getString(c.getColumnIndex("ID")) +
+                        ", " +c.getString(c.getColumnIndex(Tasks.IF)) +
+                        ", " +c.getString(c.getColumnIndex(Tasks.THEN)) +
+                        ", " +c.getString(c.getColumnIndex(Tasks.RECIPE_NAME)) +
+                        ", " + c.getString(c.getColumnIndex(Tasks.DATA)) +
+                        ", " + c.getString(c.getColumnIndex(Tasks.STATUS))+
+                        ", " + c.getString(c.getColumnIndex(Tasks.TIME)) +"\n";
+
             } while (c.moveToNext());
         }
+
+        TextView textView=(TextView)findViewById(R.id.tvHello);
+        textView.setText(str);
     }
 
     @Override

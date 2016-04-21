@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.g38.sanyam.Services.Notify;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -25,6 +26,8 @@ public class ActionsReceiver extends BroadcastReceiver{
         String actions=extras.getString("actions","");
         String ext = extras.getString("extras","");
         setActions(ext,actions,context);
+        Notify notify = new Notify(context);
+        notify.buildNotification("action","",extras.getString("rId",""),extras.getString("data",""));
     }
 
     void setActions(String extras,String actions,Context context){

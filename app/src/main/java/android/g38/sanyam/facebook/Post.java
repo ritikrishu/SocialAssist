@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
  */
 public class Post {
    static Intent intentPost;
-    public static void schedule(String className, String extras, Context context) {
+    public static void schedule(String className, String extras, Context context, int rId) {
 
         try {
             intentPost = new Intent(context, Class.forName(className));
@@ -21,6 +21,7 @@ public class Post {
             e.printStackTrace();
         }
         intentPost.putExtra("extras", "" + extras);
+        intentPost.putExtra("rId",""+rId);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Long time = new GregorianCalendar().getTimeInMillis() + 200;
         intentPost.setData(Uri.parse("myalarms://" + time));
