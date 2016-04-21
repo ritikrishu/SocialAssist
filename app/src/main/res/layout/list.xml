@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/llMain"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="300dp"
+        android:id="@+id/ivFirst"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:id="@+id/llOdd"
+        android:background="@android:color/white"
+        android:layout_marginLeft="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTime"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:text="time"/>
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/ivEvent"
+            android:layout_marginLeft="10dp"
+            android:src="@android:drawable/ic_partial_secure"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/ivTrigger"
+                    android:src="@drawable/ic_facebook_channel"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/ivAction"
+                    android:src="@drawable/ic_twitter_channel"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvShortDes"
+                android:layout_marginTop="10dp"
+                android:fontFamily="cursive"
+                android:text="This is short description"
+                android:layout_alignLeft="@id/ivTrigger"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/llEven"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="10dp"
+        android:minHeight="40dp"
+        android:background="@color/com_facebook_button_login_silver_background_color_pressed"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:fontFamily="monospace"
+            android:id="@+id/tvDetail"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingRight="10dp"
+            android:background="@color/com_facebook_button_login_silver_background_color_pressed"
+            android:text="This is log description !!!!"/>
+    </LinearLayout>
+</LinearLayout>

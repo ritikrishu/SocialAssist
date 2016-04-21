@@ -12,5 +12,8 @@
     tools:context="android.g38.socialassist.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvMain"></ListView>
 </RelativeLayout>
