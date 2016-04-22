@@ -13,9 +13,9 @@ public class DataBaseContracter{
         public static final String COLUMN_TRIGGER = "trigger";
         public static final String COLUMN_EVENT = "event";
         public static final String COLUMN_SHORTDES = "shortdes";
+        public static final String COLUMN_DETAIL = "detaildes";
     }
     public static abstract class OddEntry implements BaseColumns{
         public static final String TABLE_NAME = "oddentry";
-        public static final String COLUMN_DETAIL = "detaildes";
     }
 }

@@ -101,7 +101,7 @@ public class ListAdapter1 extends BaseAdapter {
             ivFirst.setVisibility(View.GONE);
             llOdd.setVisibility(View.GONE);
             llEven.setVisibility(View.VISIBLE);
-            tvDetail.setText(listHashMap.get(DataBaseContracter.OddEntry.COLUMN_DETAIL).get(position/2 - 1));
+            tvDetail.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(position/2 - 1));
         }
 
         return convertView;
