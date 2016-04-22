@@ -52,7 +52,7 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSms");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSms.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSms.getText().toString(),"Received New Message.");
                 startActivity(new Intent(SMSTriggerActivity.this, CreateRecipeActivity.class));
 
             }
@@ -62,7 +62,8 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSmsString");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSmsString.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSmsString.getText().toString(),"Received New Message" +
+                        "Containig ");
                 Intent intent = new Intent(SMSTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Message to Search");
                 startActivity(intent);
@@ -74,7 +75,8 @@ public class SMSTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "newSmsNumber");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSmsNumber.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSmsNumber.getText().toString(),
+                        "Received new message from ");
                 Intent intent = new Intent(SMSTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Number to Search");
                 startActivity(intent);

@@ -34,8 +34,8 @@ public class WifiReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-        this.context=context;
-        CursorFunctions cursorFunctions=new CursorFunctions(context);
+        this.context = context;
+        CursorFunctions cursorFunctions = new CursorFunctions(context);
         //WifiManager.NETWORK_STATE_CHANGED_ACTION
 
         if (info != null && info.isConnected()) {
@@ -43,30 +43,25 @@ public class WifiReceiver extends BroadcastReceiver {
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             id = wifiInfo.getSSID();
-            flag=true;
+            flag = true;
 
-            cursorFunctions.loadCursorForSpecific("cSpecific",id);
+            cursorFunctions.loadCursorForSpecific("cSpecific", id);
             cursorFunctions.loadCursor("cAny");
 
 
         } else {
 
-            if(!(id.equals(""))){
-
-                Log.i("sanyam","then----"+id);
-                cursorFunctions.loadCursorForSpecific("dSpecific",id);
-                id="";
-                flag=false;
-            }
-            if(flag){
-                flag=false;
-                Log.i("sanyam","if");
+            if (!(id.equals(""))) {
+                Log.i("sanyam", "then----" + id);
+                cursorFunctions.loadCursorForSpecific("dSpecific", id);
                 cursorFunctions.loadCursor("dAny");
-//
+                id = "";
+                flag = false;
             }
+
 
         }
+
+
     }
-
-
 }

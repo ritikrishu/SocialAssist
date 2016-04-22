@@ -41,12 +41,12 @@ public class CursorFunctions {
     void loadCursorForSpecific(String base,String specific){
         mSelectionArgs[0] = base;
         cursor = context.getContentResolver().query(Tasks.CONTENT_URI, null, mSelectionClause, mSelectionArgs, null);
-        Log.i("sanyam","loader----");
+
         if(!cursor.moveToFirst())
             return;
         do{
             if(specific.contains(cursor.getString(cursor.getColumnIndex(Tasks.others)))){
-                Log.i("sanyam","check----");
+
                 check(cursor);
             }
 
@@ -67,6 +67,7 @@ public class CursorFunctions {
         flag = cursor.getString(cursor.getColumnIndex("state")).trim();
         //RecipeCP.setStatusDone(context,cursor.getString(cursor.getColumnIndex(Tasks.base)));
         rId=cursor.getString(cursor.getColumnIndex(Tasks._ID));
+        data=cursor.getString(cursor.getColumnIndex(Tasks.extras));
         if (flag.equalsIgnoreCase("true")) {
             schedule(cursor.getString(cursor.getColumnIndex(Tasks.intent)).trim(),
                     cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim());

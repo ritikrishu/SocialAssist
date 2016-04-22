@@ -64,7 +64,8 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "cAny");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cAny.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cAny.getText().toString(),
+                        "Connected to a Wifi network");
                 launchCreate();
             }
         });
@@ -74,7 +75,8 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "dAny");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dAny.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dAny.getText().toString(),
+                        "Disconnected from a Wifi network");
                 launchCreate();
             }
         });
@@ -84,7 +86,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "cSpecific");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cSpecific.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cSpecific.getText().toString(),"Connected to ");
                 Intent intent = new Intent(DeviceTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Wifi Name");
                 startActivity(intent);
@@ -97,7 +99,7 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "dSpecific");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dSpecific.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dSpecific.getText().toString(),"Disconnected from ");
                 Intent intent = new Intent(DeviceTriggerActivity.this, UserInput.class);
                 intent.putExtra("msg", "Enter Wifi Name");
                 startActivity(intent);
@@ -110,7 +112,8 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "cBlue");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cBlue.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, cBlue.getText().toString(),"Connected to a " +
+                        "bluetooth device.");
                 launchCreate();
             }
         });
@@ -120,7 +123,8 @@ public class DeviceTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "dBlue");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dBlue.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_device_channel, dBlue.getText().toString(),
+                        "Disconnected from a bluetooth device.");
                 launchCreate();
             }
         });

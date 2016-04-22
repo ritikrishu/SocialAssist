@@ -14,25 +14,26 @@ import java.util.Calendar;
  */
 public class RecipeCP {
     static SharedPreferences forCp ;
-    static public void  setIf(Context context,String image,String data){
+    static public void  setIf(Context context,String image,String name,String data){
         forCp= context.getSharedPreferences("recipe", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=forCp.edit();
         editor.putString("if",image);
-        editor.putString("recipeName",data);
+        editor.putString("recipeName",name);
+        editor.putString("data",data);
         editor.commit();
     }
 
-    static public void  setThen(Context context,String image,String data){
+    static public void  setThen(Context context,String image,String name){
         forCp= context.getSharedPreferences("recipe", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = forCp.edit();
         editor.putString("then",image);
-        editor.putString("recipeName",data+" When "+forCp.getString("recipeName",""));
+        editor.putString("recipeName",name+" When "+forCp.getString("recipeName",""));
         editor.commit();
     }
     static public void  setExtra(Context context,String data){
         forCp= context.getSharedPreferences("recipe", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = forCp.edit();
-        editor.putString("data", data);
+        editor.putString("data", forCp.getString("data","")+data);
         editor.commit();
     }
 
@@ -48,8 +49,6 @@ public class RecipeCP {
         values.put(Tasks.RECIPE_NAME, forCp.getString("recipeName",""));
         values.put(Tasks.DATA, forCp.getString("data", ""));
         values.put(Tasks.BASE, base);
-        values.put(Tasks.TIME, "");
-        values.put(Tasks.STATUS, "pending");
         Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI_FOR_RECIPE, values);
 
     }

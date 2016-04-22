@@ -6,7 +6,10 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.g38.ritik.Database.SocialAssistDBHelper;
 import android.g38.sanyam.DAO.BeanRecipe;
 import android.g38.sanyam.DAO.RecipeHistory;
 import android.g38.sanyam.contentprovider.Tasks;
@@ -24,15 +27,15 @@ import java.util.Calendar;
 public class Notify {
     Context context;
     String rId;
-    String data;
+    //String data;
     public Notify(Context context){
         this.context=context;
     }
     public void buildNotification(String title, String msg,String rId,String data){
         this.rId=rId;
-        this.data=data;
+       // this.data=data;
         if(title.equals("action")){
-            changeStatusValue("done");
+            storeRecipe("done");
             return;
         }
         Intent notificationIntent = new Intent(context,HomeActivity.class);
@@ -48,40 +51,42 @@ public class Notify {
         notificationmanager.notify(0, builder.build());
 
         if(msg.equals("Provided email ID is not valid")||msg.equals("No Internet Connection Available")){
-            changeStatusValue("failed");
+            storeRecipe("failed");
         }else {
-            changeStatusValue("done");
+            storeRecipe("done");
         }
     }
-    public void changeStatusValue( String status){
-        ContentValues values = new ContentValues();
-        values.put(Tasks.STATUS, status);
-        values.put(Tasks.DATA, data);
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd HH:mm");
-        values.put(Tasks.TIME, df.format(Calendar.getInstance().getTime()));
-        String mSelectionClause = Tasks._ID +  " LIKE ?";
-        String[] mSelectionArgs = {rId};
-        int c = context.getContentResolver().update(Tasks.CONTENT_URI_FOR_RECIPE, values, mSelectionClause, mSelectionArgs);
-        storeRecipe();
-    }
 
-    private void storeRecipe() {
-        RecipeHistory history=new RecipeHistory(context);
+    private void storeRecipe(String status) {
+        String data="";
+        SharedPreferences sp=context.getSharedPreferences("battery",Context.MODE_PRIVATE);
+        if(sp.getBoolean("flag",false)){
+            data=sp.getString("level","");
+            SharedPreferences.Editor editor=sp.edit();
+            editor.clear();
+            editor.apply();
+        }
+
         String mSelectionClause = Tasks._ID +  " LIKE ?";
         String[] mSelectionArgs = {rId};
         Cursor c = context.getContentResolver().query(Tasks.CONTENT_URI_FOR_RECIPE, null, mSelectionClause, mSelectionArgs, null);
-
         if(c.moveToFirst()){
             BeanRecipe beanRecipe=new BeanRecipe();
             beanRecipe.setIf(c.getString(c.getColumnIndex(Tasks.IF)));
             beanRecipe.setThen(c.getString(c.getColumnIndex(Tasks.THEN)));
-            beanRecipe.setData(c.getString(c.getColumnIndex(Tasks.DATA)));
+            beanRecipe.setData(c.getString(c.getColumnIndex(Tasks.DATA))+data);
             beanRecipe.setBase(c.getString(c.getColumnIndex(Tasks.BASE)));
-            beanRecipe.setStatus(c.getString(c.getColumnIndex(Tasks.STATUS)));
-            beanRecipe.setTime(c.getString(c.getColumnIndex(Tasks.TIME)));
+            beanRecipe.setStatus(status);
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd HH:mm");
+            beanRecipe.setTime(df.format(Calendar.getInstance().getTime()));
             beanRecipe.setId(c.getString(c.getColumnIndex(Tasks._ID)));
             beanRecipe.setName(c.getString(c.getColumnIndex(Tasks.RECIPE_NAME)));
-            history.insertData(beanRecipe);
+            Log.i("sanyam","Logging entire entry just for confirmation---\n"+beanRecipe);
+            SocialAssistDBHelper dbHelper = new SocialAssistDBHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            dbHelper.insertHomeListViewItems(db, beanRecipe);
+            db.close();
+            dbHelper.close();
 
         }
     }
