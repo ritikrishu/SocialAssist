@@ -12,6 +12,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.contentprovider.Tasks;
@@ -46,6 +47,11 @@ public class BatteryReceiver extends BroadcastReceiver {
                 status == BatteryManager.BATTERY_STATUS_FULL;
 
         this.context=context;
+        SharedPreferences sp=context.getSharedPreferences("battery",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putBoolean("flag",true);
+        editor.putString("level","Battery level is "+level+" %.");
+        editor.apply();
        CursorFunctions cursorFunctions=new CursorFunctions(context);
 
         if (isCharging) {
