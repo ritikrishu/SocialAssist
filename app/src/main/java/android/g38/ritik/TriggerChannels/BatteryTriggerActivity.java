@@ -40,7 +40,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "pluggedIn");
-                RecipeCP.setIf(getApplicationContext(),""+R.drawable.ic_battery_channel,pluggedIn.getText().toString());
+                RecipeCP.setIf(getApplicationContext(),""+R.drawable.ic_battery_channel,pluggedIn.getText().toString(),"Plugged In, ");
                 launchCreate();
 
             }
@@ -50,7 +50,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "pluggedOut");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_battery_channel, pluggedOut.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_battery_channel, pluggedOut.getText().toString(),"Unplugged, ");
                 launchCreate();
             }
         });
@@ -59,7 +59,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ForCp.setBase(getApplicationContext(), "below15");
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_battery_channel, below15.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_battery_channel, below15.getText().toString(),"Low,  ");
                 launchCreate();
             }
         });

@@ -77,5 +77,17 @@ public class BeanRecipe {
         this.base = base;
     }
 
-
+    @Override
+    public String toString() {
+        return "BeanRecipe{" +
+                "id='" + id + '\'' +
+                ", If='" + If + '\'' +
+                ", then='" + then + '\'' +
+                ", name='" + name + '\'' +
+                ", data='" + data + '\'' +
+                ", time='" + time + '\'' +
+                ", status='" + status + '\'' +
+                ", base='" + base + '\'' +
+                '}';
+    }
 }

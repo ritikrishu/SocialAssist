@@ -43,14 +43,14 @@ public class TwitterTriggerActivity extends AppCompatActivity {
         if(getIntent().getBooleanExtra("IF",true)) {
             tvTwitter.setText(R.string.title_activity_select_trigger);
             tweet.setText("New tweet by you");
-            RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_twitter_channel, tweet.getText().toString());
+            RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_twitter_channel, tweet.getText().toString(),"You Tweeted ");
 
         }
         else{
             tvTwitter.setText(R.string.select_action);
             tweet.setText("tweet by you");
             intent.putExtra("tag", "then");
-            RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_twitter_channel, tweet.getText().toString());
+            RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_twitter_channel, tweet.getText().toString());
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.g38.ritik.TriggerChannels.TwitterTriggerActivity;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.socialassist.CreateRecipeActivity;
 import android.g38.socialassist.HomeActivity;
 import android.g38.socialassist.R;
@@ -59,6 +60,7 @@ public class TweetActivity extends AppCompatActivity {
 
             ForCp.setBase(getApplicationContext(), "tweet");
             ForCp.setContent(getApplicationContext(), "android.g38.sanyam.twitter.ScheduledTweet", extra);
+            RecipeCP.setExtra(getApplication(),extra);
             // ForCp.setStateToTrue(getApplicationContext(),base);
             launchCreate();
         }

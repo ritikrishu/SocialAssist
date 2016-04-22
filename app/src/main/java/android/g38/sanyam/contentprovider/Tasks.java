@@ -49,8 +49,6 @@ public class Tasks extends ContentProvider {
     static final public String THEN = "then_col";
     static final public String RECIPE_NAME = "recipe_name";
     static final public String DATA = "data";
-    static final public String TIME = "time";
-    static final public String STATUS = "status";
     static final public String BASE = "base";
 
     static final int RECIPE = 3;
@@ -82,8 +80,7 @@ public class Tasks extends ContentProvider {
     static final String CREATE_DB_TABLE_RECIPE =
             " CREATE TABLE " + TABLE_NAME_RECIPE +
                     " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    " if TEXT, " +" then_col TEXT, "+" recipe_name TEXT, "+" data TEXT, "+" time TEXT, "+" base TEXT, "+
-                    " status TEXT);";
+                    " if TEXT, " +" then_col TEXT, "+" recipe_name TEXT, "+" data TEXT, "+" base TEXT );";
 
     /**
      * Helper class that actually creates and manages

@@ -5,6 +5,7 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -62,6 +63,7 @@ public class UserInput extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     ForCp.setOthers(getApplicationContext(), input.getText().toString());
+                    RecipeCP.setExtra(getApplicationContext(),input.getText().toString());
                     layout.setVisibility(View.GONE);
                     startActivity(new Intent(UserInput.this, CreateRecipeActivity.class));
                 }
@@ -85,6 +87,7 @@ public class UserInput extends AppCompatActivity {
             int index = cursor.getColumnIndex(projection[0]);
             String imagePath = cursor.getString(index);
             ForCp.setOthers(getApplicationContext(), imagePath);
+            RecipeCP.setExtra(getApplicationContext(),imagePath);
             layout.setVisibility(View.GONE);
             startActivity(new Intent(UserInput.this, CreateRecipeActivity.class));
             cursor.close();

@@ -48,9 +48,9 @@ dependencies {
         exclude group: 'org.apache.httpcomponents' //by group
         exclude group: 'org.apache.httpcomponents', module: 'httpclient' //by both name and group
     }
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
+    compile 'com.android.support:design:24.0.0-alpha1'
+    compile 'com.android.support:support-v4:24.0.0-alpha1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'org.twitter4j:twitter4j-core:4.0.3'
     compile 'com.google.android.gms:play-services-identity:8.4.0'

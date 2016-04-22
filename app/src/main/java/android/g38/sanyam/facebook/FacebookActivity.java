@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.CreateRecipeActivity;
 import android.g38.socialassist.HomeActivity;
@@ -108,6 +109,7 @@ public class FacebookActivity extends AppCompatActivity {
                 base="image";
             ForCp.setBase(getApplicationContext(), base);
             ForCp.setContent(getApplicationContext(), "android.g38.sanyam.facebook.ScheduledPost", extra);
+            RecipeCP.setExtra(getApplicationContext(),extra);
            // ForCp.setStateToTrue(getApplicationContext(),base);
             launchCreate();
         }

@@ -54,7 +54,8 @@ public class FacebookTriggerActivity extends AppCompatActivity {
         public void onClick(View v) {
             if(v.getId()==R.id.btnNewShareLink){
                 //Trigger button on new link shared by user
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnNewShareLink.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnNewShareLink.getText().toString(),
+                        "Link  shared:");
                 Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
                 intent.putExtra("msg", "Enter Link To Share");
                 startActivity(intent);
@@ -63,7 +64,8 @@ public class FacebookTriggerActivity extends AppCompatActivity {
             }
             else if(v.getId()==R.id.btnNewSharePhoto){
                 //Trigger button on new photo shared by user
-                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnNewSharePhoto.getText().toString());
+                RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_facebook_channel, btnNewSharePhoto.getText().toString(),
+                "Photo shared:");
                 Intent intent = new Intent(FacebookTriggerActivity.this, FacebookActivity.class);
                 intent.putExtra("msg", "image");
                 startActivity(intent);
