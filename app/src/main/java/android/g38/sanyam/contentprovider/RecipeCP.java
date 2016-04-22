@@ -50,7 +50,10 @@ public class RecipeCP {
         values.put(Tasks.DATA, forCp.getString("data", ""));
         values.put(Tasks.BASE, base);
         Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI_FOR_RECIPE, values);
+        ModeCp.insert(context,"on");
 
     }
+
+
 
 }

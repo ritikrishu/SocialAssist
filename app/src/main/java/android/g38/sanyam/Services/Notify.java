@@ -3,7 +3,6 @@ package android.g38.sanyam.Services;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.g38.ritik.Database.SocialAssistDBHelper;
 import android.g38.sanyam.DAO.BeanRecipe;
-import android.g38.sanyam.DAO.RecipeHistory;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.HomeActivity;
 import android.g38.socialassist.R;
@@ -60,13 +58,6 @@ public class Notify {
     private void storeRecipe(String status) {
         String data="";
         SharedPreferences sp=context.getSharedPreferences("battery",Context.MODE_PRIVATE);
-        if(sp.getBoolean("flag",false)){
-            data=sp.getString("level","");
-            SharedPreferences.Editor editor=sp.edit();
-            editor.clear();
-            editor.apply();
-        }
-
         String mSelectionClause = Tasks._ID +  " LIKE ?";
         String[] mSelectionArgs = {rId};
         Cursor c = context.getContentResolver().query(Tasks.CONTENT_URI_FOR_RECIPE, null, mSelectionClause, mSelectionArgs, null);
@@ -74,6 +65,13 @@ public class Notify {
             BeanRecipe beanRecipe=new BeanRecipe();
             beanRecipe.setIf(c.getString(c.getColumnIndex(Tasks.IF)));
             beanRecipe.setThen(c.getString(c.getColumnIndex(Tasks.THEN)));
+            beanRecipe.setData(c.getString(c.getColumnIndex(Tasks.DATA))+data);
+            data=c.getString(c.getColumnIndex(Tasks.BASE));
+            beanRecipe.setBase(data);
+            if(data.equals("pluggedIn")||data.equals("pluggedOut")||
+                    data.equals("below15")){
+                data=sp.getString("level","");
+            }
             beanRecipe.setData(c.getString(c.getColumnIndex(Tasks.DATA))+data);
             beanRecipe.setBase(c.getString(c.getColumnIndex(Tasks.BASE)));
             beanRecipe.setStatus(status);

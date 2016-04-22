@@ -5,18 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.g38.ritik.Database.DataBaseContracter;
 import android.g38.sanyam.DAO.BeanRecipe;
-import android.g38.sanyam.DAO.RecipeHistory;
-import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.R;
-import android.util.Log;
 
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Created by ritik on 3/17/2016.

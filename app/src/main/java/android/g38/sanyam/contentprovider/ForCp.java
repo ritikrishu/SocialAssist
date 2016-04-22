@@ -98,6 +98,7 @@ public class ForCp {
 //            int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
             context.getContentResolver().insert(Tasks.CONTENT_URI,values);
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
+
             setDone(context);
             //uncomment <code>
             //  SharedPreferences.Editor editor = forCp.edit();

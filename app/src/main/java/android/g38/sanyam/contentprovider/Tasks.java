@@ -26,8 +26,10 @@ public class Tasks extends ContentProvider {
     static final public String PROVIDER_NAME = "android.g38.sanyam.contentprovider";
     static final public String URL = "content://" + PROVIDER_NAME + "/tasks";
     static final public String URL_RECIPE = "content://" + PROVIDER_NAME + "/recipe";
+    static final public String URL_MODE = "content://" + PROVIDER_NAME + "/mode";
     static final public Uri CONTENT_URI = Uri.parse(URL);
     static final public Uri CONTENT_URI_FOR_RECIPE = Uri.parse(URL_RECIPE);
+    static final public Uri CONTENT_URI_FOR_MODE = Uri.parse(URL_MODE);
 
     //FOR TABLE ONE
     static final public String _ID = "_id";
@@ -54,6 +56,13 @@ public class Tasks extends ContentProvider {
     static final int RECIPE = 3;
     static final int RECIPE_ID = 4;
 
+    //FOR TABLE MODE
+
+    static final public String MODE = "MODE";;
+
+    static final int RMODE = 5;
+    static final int MODE_ID = 6;
+
     static final UriMatcher uriMatcher;
     static{
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -61,6 +70,9 @@ public class Tasks extends ContentProvider {
         uriMatcher.addURI(PROVIDER_NAME, "tasks/#", TASKS_ID);
         uriMatcher.addURI(PROVIDER_NAME, "recipe", RECIPE);
         uriMatcher.addURI(PROVIDER_NAME, "recipe/#", RECIPE_ID);
+        uriMatcher.addURI(PROVIDER_NAME, "mode", RMODE);
+        uriMatcher.addURI(PROVIDER_NAME, "mode/#", MODE_ID);
+
     }
 
     /**
@@ -70,6 +82,7 @@ public class Tasks extends ContentProvider {
     static final String DATABASE_NAME = "SA";
     static final String TABLE_NAME = "tasks";
     static final String TABLE_NAME_RECIPE = "recipe";
+    static final String TABLE_MODE = "recipe_mode";
     static final int DATABASE_VERSION = 1;
     static final String CREATE_DB_TABLE =
             " CREATE TABLE " + TABLE_NAME +
@@ -82,6 +95,10 @@ public class Tasks extends ContentProvider {
                     " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     " if TEXT, " +" then_col TEXT, "+" recipe_name TEXT, "+" data TEXT, "+" base TEXT );";
 
+    static final String CREATE_DB_TABLE_MODE =
+            " CREATE TABLE " + TABLE_MODE +
+                    " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    " MODE TEXT );";
     /**
      * Helper class that actually creates and manages
      * the provider's underlying data repository.
@@ -96,6 +113,7 @@ public class Tasks extends ContentProvider {
         {
             db.execSQL(CREATE_DB_TABLE);
             db.execSQL(CREATE_DB_TABLE_RECIPE);
+            db.execSQL(CREATE_DB_TABLE_MODE);
         }
 
         @Override
@@ -103,6 +121,8 @@ public class Tasks extends ContentProvider {
             db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
             onCreate(db);
             db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME_RECIPE);
+            onCreate(db);
+            db.execSQL("DROP TABLE IF EXISTS " +  TABLE_MODE);
             onCreate(db);
         }
     }
@@ -140,6 +160,14 @@ public class Tasks extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                 }
                 break;
+            case RMODE:
+                long _ID3 = db.insert(TABLE_MODE, "", values);
+                //---if added successfully---
+                if (_ID3 > 0) {
+                    _uri = ContentUris.withAppendedId(CONTENT_URI_FOR_MODE, _ID3);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                }
+                break;
             default: throw new SQLException("Failed to insert row into " + uri);
         }
         return _uri;
@@ -168,6 +196,16 @@ public class Tasks extends ContentProvider {
 
             case RECIPE_ID:
                 qb.setTables(TABLE_NAME_RECIPE);
+                qb.appendWhere( _ID + "=" + uri.getPathSegments().get(1));
+                break;
+
+            case RMODE:
+                qb.setTables(TABLE_MODE);
+                qb.setProjectionMap(PROJECTION_MAP);
+                break;
+
+            case MODE_ID:
+                qb.setTables(TABLE_MODE);
                 qb.appendWhere( _ID + "=" + uri.getPathSegments().get(1));
                 break;
 
@@ -210,6 +248,15 @@ public class Tasks extends ContentProvider {
                 count = db.delete( TABLE_NAME_RECIPE, _ID +  " = " + idR +
                         (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
                 break;
+            case RMODE:
+                count = db.delete(TABLE_MODE, selection, selectionArgs);
+                break;
+
+            case MODE_ID:
+                String idMode = uri.getPathSegments().get(1);
+                count = db.delete( TABLE_MODE, _ID +  " = " + idMode +
+                        (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
+                break;
 
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
@@ -241,6 +288,14 @@ public class Tasks extends ContentProvider {
                 count = db.update(TABLE_NAME_RECIPE, values, _ID + " = " + uri.getPathSegments().get(1) +
                         (!TextUtils.isEmpty(selection) ? " AND (" +selection + ')' : ""), selectionArgs);
                 break;
+            case RMODE:
+                count = db.update(TABLE_MODE, values, selection, selectionArgs);
+                break;
+
+            case MODE_ID:
+                count = db.update(TABLE_MODE, values, _ID + " = " + uri.getPathSegments().get(1) +
+                        (!TextUtils.isEmpty(selection) ? " AND (" +selection + ')' : ""), selectionArgs);
+                break;
 
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri );
@@ -264,6 +319,11 @@ public class Tasks extends ContentProvider {
 
             case RECIPE_ID:
                 return "vnd.android.cursor.item/vnd.example.recipe";
+            case RMODE:
+                return "vnd.android.cursor.dir/vnd.example.mode";
+
+            case MODE_ID:
+                return "vnd.android.cursor.item/vnd.example.mode";
 
             default:
                 throw new IllegalArgumentException("Unsupported URI: " + uri);
