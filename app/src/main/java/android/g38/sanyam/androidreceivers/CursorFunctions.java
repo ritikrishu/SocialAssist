@@ -34,7 +34,11 @@ public class CursorFunctions {
         cursor = context.getContentResolver().query(Tasks.CONTENT_URI, null, mSelectionClause, mSelectionArgs, null);
         if(!cursor.moveToFirst())
             return;
+
         do{
+            if(!(checkMode(cursor.getString(cursor.getColumnIndex(Tasks._ID)))))
+                continue;
+
             check(cursor);
         }while (cursor.moveToNext());
     }
@@ -45,6 +49,9 @@ public class CursorFunctions {
         if(!cursor.moveToFirst())
             return;
         do{
+            if(!(checkMode(cursor.getString(cursor.getColumnIndex(Tasks._ID)))))
+                continue;
+
             if(specific.contains(cursor.getString(cursor.getColumnIndex(Tasks.others)))){
 
                 check(cursor);
@@ -58,6 +65,11 @@ public class CursorFunctions {
         if(!cursor.moveToFirst())
             return;
         do{
+
+
+            if(!(checkMode(cursor.getString(cursor.getColumnIndex(Tasks._ID)))))
+                continue;
+
             checkForFb(cursor);
         }while (cursor.moveToNext());
     }
@@ -130,4 +142,13 @@ public class CursorFunctions {
         int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
     }
 
+    private boolean checkMode(String id){
+
+        Cursor c=context.getContentResolver().query(Tasks.CONTENT_URI_FOR_MODE, null, "_ID    LIKE ? "
+                , new String[]{id}, null);
+        c.moveToFirst();
+        if((c.getString(c.getColumnIndex(Tasks.MODE)).trim().equals("off")))
+            return false;
+        return true;
+    }
 }
