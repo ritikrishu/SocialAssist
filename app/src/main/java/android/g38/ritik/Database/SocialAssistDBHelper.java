@@ -16,6 +16,7 @@ import android.util.Log;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Created by ritik on 3/17/2016.
@@ -59,7 +60,7 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
         values.put(DataBaseContracter.EvenEntry.COLUMN_EVENT,row.getStatus());
         values.put(DataBaseContracter.EvenEntry.COLUMN_TRIGGER,row.getIf());
         values.put(DataBaseContracter.EvenEntry.COLUMN_ACTION, row.getThen());
-        values.put(DataBaseContracter.EvenEntry.COLUMN_SHORTDES,row.getBase());// @sanyam verify if base is short description
+        values.put(DataBaseContracter.EvenEntry.COLUMN_SHORTDES,row.getName());// @sanyam verify if name is short description
         values.put(DataBaseContracter.EvenEntry.COLUMN_TIME,row.getTime());
         values.put(DataBaseContracter.EvenEntry.COLUMN_DETAIL,row.getData());// @sanyam verify if data is the trigger action detail. ex : "Battery Unpluged", "You posted on facebook"...
         db.insert(DataBaseContracter.EvenEntry.TABLE_NAME,null,values);
