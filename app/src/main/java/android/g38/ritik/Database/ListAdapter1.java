@@ -82,6 +82,8 @@ public class ListAdapter1 extends BaseAdapter {
             tvTime.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TIME).get(0));
             tvSrtDes.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(0));
          //   ivEvent.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(0)));
+         //   ivEvent.setImageResource(R.drawable.ic_gmail_channel);
+
             ivAction.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(0)));
             ivTrigger.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TRIGGER).get(0)));
         }
@@ -110,7 +112,8 @@ public class ListAdapter1 extends BaseAdapter {
     }
 
     private void setIvEvent(int position){
-        ivEvent.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(position/2 - 1)));
+       // ivEvent.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(position/2 - 1)));
+  //      ivEvent.setImageResource(R.drawable.ic_facebook_channel);
     }
     private void setIvAction(int position){
         ivAction.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(position/2 - 1)));

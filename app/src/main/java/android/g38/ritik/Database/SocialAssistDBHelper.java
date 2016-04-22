@@ -66,9 +66,13 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             public void run() {
 
                 Cursor cursor=recipeHistory.getData();
-                while (cursor.moveToNext()) {
+                if(!cursor.moveToLast())
+                    return;
+                do {
                     valuesTime.add(cursor.getString(cursor.getColumnIndex(Tasks.TIME)));
-                }
+                }while (cursor.moveToPrevious());
+
+
             }
         };
 
@@ -76,9 +80,12 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             @Override
             public void run() {
                 Cursor cursor=recipeHistory.getData();
-                while (cursor.moveToNext()) {
+                if(!cursor.moveToLast())
+                    return;
+                do {
                     valuesAction.add(cursor.getString(cursor.getColumnIndex(Tasks.THEN)));
-                }
+                }while (cursor.moveToPrevious());
+
             }
         };
 
@@ -86,9 +93,13 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             @Override
             public void run() {
                 Cursor cursor=recipeHistory.getData();
-                while (cursor.moveToNext()) {
+                if(!cursor.moveToLast())
+                    return;
+                do {
                     valuesTrigger.add(cursor.getString(cursor.getColumnIndex(Tasks.IF)));
-                }
+                }while (cursor.moveToPrevious());
+
+
             }
         };
 
@@ -96,9 +107,13 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             @Override
             public void run() {
                 Cursor cursor=recipeHistory.getData();
-                while (cursor.moveToNext()) {
+                if(!cursor.moveToLast())
+                    return;
+                do {
                     valuesShortDes.add(cursor.getString(cursor.getColumnIndex(Tasks.RECIPE_NAME)));
-                }
+                }while (cursor.moveToPrevious());
+
+
             }
         };
 
@@ -107,9 +122,13 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             @Override
             public void run() {
                 Cursor cursor=recipeHistory.getData();
-                while (cursor.moveToNext()) {
+                if(!cursor.moveToLast())
+                    return;
+                do {
                     valuesEvent.add(cursor.getString(cursor.getColumnIndex(Tasks.STATUS)));
-                }
+                }while (cursor.moveToPrevious());
+
+
             }
         };
 
@@ -117,9 +136,12 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             @Override
             public void run() {
                 Cursor cursor=recipeHistory.getData();
-                while (cursor.moveToNext()) {
-                    valuesDetail.add(cursor.getString(cursor.getColumnIndex(Tasks.DATA)));
-                }
+                if(!cursor.moveToLast())
+                    return;
+                do {
+                    valuesDetail.add("Detail : "+cursor.getString(cursor.getColumnIndex(Tasks.DATA)));
+                }while (cursor.moveToPrevious());
+
             }
         };
         tAction.start();

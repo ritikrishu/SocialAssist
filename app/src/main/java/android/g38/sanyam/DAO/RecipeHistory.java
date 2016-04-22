@@ -63,7 +63,7 @@ public class RecipeHistory extends SQLiteOpenHelper {
 
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("SELECT * FROM "+ TABLEDISPLAY+" ORDER BY ID,time DESC",null);
+        Cursor result = db.rawQuery("SELECT * FROM "+ TABLEDISPLAY,null);
         return result;
     }
 

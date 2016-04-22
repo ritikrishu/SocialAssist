@@ -57,7 +57,7 @@ public class Notify {
         ContentValues values = new ContentValues();
         values.put(Tasks.STATUS, status);
         values.put(Tasks.DATA, data);
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd \n HH:mm");
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd HH:mm");
         values.put(Tasks.TIME, df.format(Calendar.getInstance().getTime()));
         String mSelectionClause = Tasks._ID +  " LIKE ?";
         String[] mSelectionArgs = {rId};
