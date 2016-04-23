@@ -1,8 +1,10 @@
-package android.g38.ritik.Database;
+package android.g38.ritik.AdaptersAndAnimators;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.g38.ritik.Database.DataBaseContracter;
+import android.g38.ritik.Database.SocialAssistDBHelper;
 import android.g38.socialassist.R;
 import android.util.Log;
 import android.view.LayoutInflater;

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.renderscript.Long2;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -51,11 +52,15 @@ public class CreateRecipeActivity extends AppCompatActivity {
         Intent intent = new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class);
         intent.putExtra("IF",true);
         startActivity(intent);
+        finish();
+        Log.e("finish", "Create");
     }
     public void onThenClick(View v){
         Intent intent = new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class);
         intent.putExtra("IF",false);
         startActivity(intent);
+        finish();
+        Log.e("finish", "Create then");
     }
 
 
