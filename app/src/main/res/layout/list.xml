@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +13,9 @@
         android:id="@+id/ivFirst"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_below="@id/ivFirst"
         android:layout_marginTop="10dp"
         android:id="@+id/llOdd"
         android:background="@android:color/white"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvTime"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:fontFamily="monospace"
             android:text="time"/>
         <ImageView
@@ -31,12 +32,14 @@
             android:layout_height="10dp"
             android:id="@+id/ivEvent"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:src="@android:drawable/ic_partial_secure"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -72,6 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_below="@id/llOdd"
         android:id="@+id/llEven"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="40dp"
@@ -93,4 +97,4 @@
             android:background="@color/com_facebook_button_login_silver_background_color_pressed"
             android:text="This is log description !!!!"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
