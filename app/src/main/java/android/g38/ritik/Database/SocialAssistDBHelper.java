@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.g38.sanyam.DAO.BeanRecipe;
 import android.g38.socialassist.R;
+import android.util.Log;
 
 
 import java.util.ArrayList;
@@ -153,6 +154,10 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        for(int i = 0; i < valuesAction.size(); i++){
+            Log.i("values entry check", "Time : "+valuesTime.get(i) + ", Action : " + valuesAction.get(i) + ", Trigger : " + valuesTrigger.get(i) + ", Short Description : " +
+                    valuesShortDes.get(i) + ", Is successfull : " + valuesEvent.get(i) + ", Detail : " + valuesDetail.get(i));
         }
         listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_TIME, valuesTime);
         listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_ACTION, valuesAction);

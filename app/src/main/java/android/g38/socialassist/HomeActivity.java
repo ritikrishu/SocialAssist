@@ -3,12 +3,12 @@ package android.g38.socialassist;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.g38.ritik.Database.ListAdapter1;
 import android.g38.ritik.Database.SocialAssistDBHelper;
-import android.g38.sanyam.contentprovider.ModeCp;
-import android.g38.sanyam.contentprovider.Tasks;
+import android.g38.sanyam.contentprovider.ForCp;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -66,7 +68,12 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
 
-
+        listView.setRecyclerListener(new AbsListView.RecyclerListener() {
+            @Override
+            public void onMovedToScrapHeap(View view) {
+                view.destroyDrawingCache();
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,23 +81,24 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-
     }
 	
 //	private void getLayoutDetails(){
 //        String str = "";
-//
-//        Cursor c= ModeCp.getData(getApplicationContext());
+//		RecipeHistory recipeHistory = new RecipeHistory(getApplicationContext());
+//        Cursor c=recipeHistory.getData();
 //        if (c.moveToFirst()) {
 //            do{
-//                str+=c.getString(c.getColumnIndex(Tasks._ID)) +
-//                        ", " +c.getString(c.getColumnIndex(Tasks.MODE)) +"\n";
+//                str+=c.getString(c.getColumnIndex(RecipeHistory.ID)) +
+//                        ", " +c.getString(c.getColumnIndex(RecipeHistory.IF)) +
+//                        ", " +c.getString(c.getColumnIndex(RecipeHistory.THEN)) +
+//                        ", " +c.getString(c.getColumnIndex(RecipeHistory.RECIPE_NAME)) +
+//                        ", " + c.getString(c.getColumnIndex(RecipeHistory.DATA)) +
+//                        ", " + c.getString(c.getColumnIndex(RecipeHistory.STATUS))+
+//                        ", " + c.getString(c.getColumnIndex(RecipeHistory.TIME)) +"\n";
 //
 //            } while (c.moveToNext());
 //        }
-//
-//        Log.i("sanyam",str);
-//        ModeCp.changeMode("2","off",getApplicationContext());
 //	}
 
     @Override
@@ -128,8 +136,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
         listView.setAdapter(new ListAdapter1(HomeActivity.this,getLayoutInflater()));
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -167,8 +175,13 @@ public class HomeActivity extends AppCompatActivity
 
         @Override
         protected Void doInBackground(Context... params) {
-
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialog.hide();
         }
     }
 }
