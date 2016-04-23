@@ -21,6 +21,7 @@ import java.util.Random;
  * Created by ritik on 4/21/2016.
  */
 public class ListAdapter1 extends BaseAdapter {
+    //
     private int count;
     private LayoutInflater mInflater;
     HashMap<String, ArrayList<String>> listHashMap;
@@ -55,44 +56,42 @@ public class ListAdapter1 extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        if(convertView == null) {
+        if (convertView == null)
             convertView = mInflater.inflate(R.layout.list, parent, false);
-        }
-            llEven = (LinearLayout) convertView.findViewById(R.id.llEven);
-            llOdd = (LinearLayout) convertView.findViewById(R.id.llOdd);
-            tvTime = (TextView) convertView.findViewById(R.id.tvTime);
-            tvSrtDes = (TextView) convertView.findViewById(R.id.tvShortDes);
-            tvDetail = (TextView) convertView.findViewById(R.id.tvDetail);
-            ivEvent = (ImageView) convertView.findViewById(R.id.ivEvent);
-            ivAction = (ImageView) convertView.findViewById(R.id.ivAction);
-            ivTrigger = (ImageView) convertView.findViewById(R.id.ivTrigger);
-            ivFirst = (ImageView) convertView.findViewById(R.id.ivFirst);
-
-        if(position == 0){
+        llEven = (LinearLayout) convertView.findViewById(R.id.llEven);
+        llOdd = (LinearLayout) convertView.findViewById(R.id.llOdd);
+        tvTime = (TextView) convertView.findViewById(R.id.tvTime);
+        tvSrtDes = (TextView) convertView.findViewById(R.id.tvShortDes);
+        tvDetail = (TextView) convertView.findViewById(R.id.tvDetail);
+        ivEvent = (ImageView) convertView.findViewById(R.id.ivEvent);
+        ivAction = (ImageView) convertView.findViewById(R.id.ivAction);
+        ivTrigger = (ImageView) convertView.findViewById(R.id.ivTrigger);
+        ivFirst = (ImageView) convertView.findViewById(R.id.ivFirst);
+        if (position == 0) {
             llEven.setVisibility(View.GONE);
             llOdd.setVisibility(View.GONE);
             ivFirst.setVisibility(View.VISIBLE);
             ivFirst.setImageResource(generateSeggestion());
         }
-        else if(position == 1){
+        else if (position == 1) {
             llEven.setVisibility(View.GONE);
             llOdd.setVisibility(View.VISIBLE);
             ivFirst.setVisibility(View.GONE);
             tvTime.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TIME).get(0));
             tvSrtDes.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(0));
-         //   ivEvent.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(0)));
-         //   ivEvent.setImageResource(R.drawable.ic_gmail_channel);
-
+            if(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(0).equals("done"))
+                ivEvent.setImageResource(R.drawable.ic_icon_done);
+            else
+                ivEvent.setImageResource(R.drawable.ic_icon_failed);
             ivAction.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(0)));
             ivTrigger.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TRIGGER).get(0)));
         }
-        else if(!(position%2 == 0)){
+        else if (!(position % 2 == 0)) {
             llEven.setVisibility(View.GONE);
             llOdd.setVisibility(View.VISIBLE);
             ivFirst.setVisibility(View.GONE);
-            tvTime.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TIME).get(position/2 - 1));
-            tvSrtDes.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(position/2 - 1));
+            tvTime.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TIME).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
+            tvSrtDes.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
             setIvEvent(position);
             setIvAction(position);
             setIvTrigger(position);
@@ -101,24 +100,27 @@ public class ListAdapter1 extends BaseAdapter {
             ivFirst.setVisibility(View.GONE);
             llOdd.setVisibility(View.GONE);
             llEven.setVisibility(View.VISIBLE);
-            tvDetail.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(position/2 - 1));
+            tvDetail.setText(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(position / 2 - 1));
         }
-
         return convertView;
     }
 
     private int generateSeggestion(){
-        return getImageResource[new Random().nextInt(9)];
+        int position = new Random().nextInt(9);
+        Log.i("List view 0 image : ", getImageResource[position]+"");
+        return getImageResource[position];
     }
 
     private void setIvEvent(int position){
-       // ivEvent.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(position/2 - 1)));
-  //      ivEvent.setImageResource(R.drawable.ic_facebook_channel);
+        if(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_EVENT).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1).equals("done"))
+            ivEvent.setImageResource(R.drawable.ic_icon_done);
+        else
+            ivEvent.setImageResource(R.drawable.ic_icon_failed);
     }
     private void setIvAction(int position){
-        ivAction.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(position/2 - 1)));
+        ivAction.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1)));
     }
     private void setIvTrigger(int position){
-        ivTrigger.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TRIGGER).get(position/2 - 1)));
+        ivTrigger.setImageResource(Integer.valueOf(listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TRIGGER).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1)));
     }
 }
