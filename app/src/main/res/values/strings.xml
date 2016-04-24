@@ -117,6 +117,7 @@
     </string>
     <string name="title_activity_date_time_picker">Select Date and Time</string>
     <string name="title_activity_facebook_trigger">Facebook</string>
+    <string name="title_activity_recipes">RecipesActivity</string>
 
 
 </resources>

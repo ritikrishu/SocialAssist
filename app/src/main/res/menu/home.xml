@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_recipe"
+        android:orderInCategory="99"
+        android:title="My Recipes"
+        app:showAsAction="ifRoom" />
 </menu>

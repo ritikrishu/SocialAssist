@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -124,7 +127,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         holder.container.setLayoutParams(layoutParams);
-        MyUtils.homeActivityListFinal(holder, position > previousPosition);
+        YoYo.with(Techniques.RollIn).duration(500).playOn(holder.itemView);
     }
 
     @Override

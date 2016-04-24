@@ -117,6 +117,8 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             startActivity(new Intent(HomeActivity.this,SettingsActivity.class));
         }
+        else if(id == R.id.action_recipe)
+            startActivity(new Intent(HomeActivity.this,RecipesActivity.class));
 
         return super.onOptionsItemSelected(item);
     }
@@ -155,25 +157,5 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    class LoadList extends AsyncTask<Context, Void, Void>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Context... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            dialog.hide();
-        }
     }
 }
