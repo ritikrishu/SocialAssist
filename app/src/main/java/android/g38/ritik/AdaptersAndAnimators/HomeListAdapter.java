@@ -1,9 +1,11 @@
 package android.g38.ritik.AdaptersAndAnimators;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.g38.ritik.Database.DataBaseContracter;
 import android.g38.ritik.Database.SocialAssistDBHelper;
+import android.g38.socialassist.PersonalRecipeActivity;
 import android.g38.socialassist.R;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +32,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
     private int count, previousPosition = 0;
     HashMap<String, ArrayList<String>> listHashMap;
     LayoutInflater mInflater;
+    Context context;
     int[] getImageResource = {R.drawable.ic_list_one, R.drawable.ic_list_two, R.drawable.ic_list_three, R.drawable.ic_list_four, R.drawable.ic_list_five, R.drawable.ic_list_six, R.drawable.ic_list_seven, R.drawable.ic_list_eight, R.drawable.ic_list_nine};
     public HomeListAdapter(Context context, LayoutInflater mLayoutInflater){
         this.mInflater = mLayoutInflater;
@@ -36,6 +42,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
         db.close();
         dbHelper.close();
         count = listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TIME).size() * 2 + 1;
+        this.context = context;
     }
 
 
@@ -66,8 +73,19 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
 
         @Override
         public void onClick(View v) {
-            Log.i("position", ""+getAdapterPosition());
+            int position = getAdapterPosition();
+            if(position != 0) {
+                Intent intent = new Intent(context, PersonalRecipeActivity.class);
+                if (position == 1 || position == 2)
+                    intent.putStringArrayListExtra("data", getDataOne());
+                else if (position % 2 != 0)
+                    intent.putStringArrayListExtra("data", getDataNotOne(position));
+                else if (position % 2 == 0)
+                    intent.putStringArrayListExtra("data", getDataNotOne(position - 1));
+                context.startActivity(intent);
+            }
         }
+
     }
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -124,7 +142,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         holder.container.setLayoutParams(layoutParams);
-        MyUtils.homeActivityListFinal(holder, position > previousPosition);
+        YoYo.with(Techniques.RollIn).duration(500).playOn(holder.itemView);
     }
 
     @Override
@@ -133,5 +151,24 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
     }
     private int generateSeggestion(){
         return getImageResource[new Random().nextInt(9)];
+    }
+
+    protected ArrayList<String> getDataNotOne(int position){
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(0,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TRIGGER).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
+        arrayList.add(1,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
+        arrayList.add(2,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
+        arrayList.add(3,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
+
+        Log.i("tag", position +"------"+ arrayList.get(0));
+        return arrayList;
+    }
+    protected ArrayList<String> getDataOne(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(0,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_TRIGGER).get(0));
+        arrayList.add(1,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(0));
+        arrayList.add(2,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(0));
+        arrayList.add(3,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(0));
+        return arrayList;
     }
 }
