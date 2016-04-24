@@ -115,9 +115,16 @@ public class FacebookActivity extends AppCompatActivity {
         }
     }
     void launchHome(){
-        startActivity(new Intent(FacebookActivity.this, HomeActivity.class));
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
-    void launchCreate(){startActivity(new Intent(FacebookActivity.this, CreateRecipeActivity.class));}
+    void launchCreate(){
+        Intent intent = new Intent(getApplicationContext(), CreateRecipeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 //    Button image = (Button)findViewById(R.id.image);
 //    image.setOnClickListener(new View.OnClickListener() {

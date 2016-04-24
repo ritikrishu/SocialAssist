@@ -66,9 +66,16 @@ public class TweetActivity extends AppCompatActivity {
         }
     }
     void launchHome(){
-        startActivity(new Intent(TweetActivity.this, HomeActivity.class));
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
-    void launchCreate(){startActivity(new Intent(TweetActivity.this, CreateRecipeActivity.class));}
+    void launchCreate(){
+        Intent intent = new Intent(getApplicationContext(), CreateRecipeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     void createExtra(String status){
         extra+="---"+getString(R.string.twitter_consumer_key)+

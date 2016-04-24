@@ -2,11 +2,14 @@ package android.g38.ritik.TriggerChannels;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.g38.ritik.Gmail.GmailActionsActivity;
 import android.g38.sanyam.contentprovider.ForCp;
 import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.socialassist.CreateRecipeActivity;
+import android.g38.socialassist.SelectTriggerActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -53,6 +56,8 @@ public class DateTimePickerActivity extends AppCompatActivity {
         finish();
     }
 
+
+
     void pickDate(){
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -72,6 +77,13 @@ public class DateTimePickerActivity extends AppCompatActivity {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+        datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    onBackPressed();
+                }
+            }
+        });
     }
 
     void pickTime(){
@@ -97,6 +109,13 @@ public class DateTimePickerActivity extends AppCompatActivity {
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
+        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    onBackPressed();
+                }
+            }
+        });
     }
 
     void setData(Long time){
@@ -108,4 +127,10 @@ public class DateTimePickerActivity extends AppCompatActivity {
         RecipeCP.setIf(getApplicationContext(),""+R.drawable.ic_dateandtime_channel,"Its "+datePicked,datePicked);
         startActivity(new Intent(getApplicationContext(), CreateRecipeActivity.class));
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

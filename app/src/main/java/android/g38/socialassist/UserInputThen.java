@@ -51,8 +51,7 @@ public class UserInputThen extends AppCompatActivity {
                     ForCp.saveToCp(getApplicationContext(), extras, intent);
                     ForCp.checkLaunch(getApplicationContext());
                     layout.setVisibility(View.GONE);
-                    startActivity(new Intent(UserInputThen.this, HomeActivity.class));
-                    finish();
+                    launchHome();
                 }
             });
 
@@ -84,8 +83,7 @@ public class UserInputThen extends AppCompatActivity {
                     ForCp.saveToCpForAction(getApplicationContext(), extras.getString("tag"));
                     ForCp.checkLaunch(getApplicationContext());
                     layout.setVisibility(View.GONE);
-                    startActivity(new Intent(UserInputThen.this, HomeActivity.class));
-                    finish();
+                    launchHome();
 
                 }
             });
@@ -141,10 +139,15 @@ public class UserInputThen extends AppCompatActivity {
             ForCp.saveToCpForAction(getApplicationContext(), extras.getString("tag"));
             ForCp.checkLaunch(getApplicationContext());
             layout.setVisibility(View.GONE);
-            startActivity(new Intent(UserInputThen.this, HomeActivity.class));
-            finish();
+            launchHome();
             cursor.close();
 
         }
+    }
+    void launchHome(){
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 }

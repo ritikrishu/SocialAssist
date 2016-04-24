@@ -65,8 +65,7 @@ public class UserInput extends AppCompatActivity {
                     ForCp.setOthers(getApplicationContext(), input.getText().toString());
                     RecipeCP.setExtra(getApplicationContext(),input.getText().toString());
                     layout.setVisibility(View.GONE);
-                    startActivity(new Intent(UserInput.this, CreateRecipeActivity.class));
-                    finish();
+                    launchCreate();
                 }
             });
         }
@@ -90,10 +89,16 @@ public class UserInput extends AppCompatActivity {
             ForCp.setOthers(getApplicationContext(), imagePath);
             RecipeCP.setExtra(getApplicationContext(),imagePath);
             layout.setVisibility(View.GONE);
-            startActivity(new Intent(UserInput.this, CreateRecipeActivity.class));
-            finish();
+            launchCreate();
             cursor.close();
 
         }
+    }
+
+
+    void launchCreate(){
+        Intent intent = new Intent(getApplicationContext(), CreateRecipeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
