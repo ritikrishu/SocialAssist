@@ -1,14 +1,21 @@
 package android.g38.sanyam.contentprovider;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.g38.sanyam.androidreceivers.ActionsReceiver;
+import android.g38.sanyam.androidreceivers.TimeReceiver;
 import android.g38.sanyam.facebook.Post;
 import android.g38.socialassist.HomeActivity;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
+
+import java.util.GregorianCalendar;
 
 /**
  * Created by SANYAM TYAGI on 3/21/2016.
@@ -99,7 +106,9 @@ public class ForCp {
             context.getContentResolver().insert(Tasks.CONTENT_URI,values);
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
 
+            checkForTime(forCp.getString("base",""),context,RecipeCP.getCount(context)-1);
             setDone(context);
+
             //uncomment <code>
             //  SharedPreferences.Editor editor = forCp.edit();
             //editor.putBoolean("adddone",true);
@@ -119,12 +128,10 @@ public class ForCp {
             values.put(Tasks.others, forCp.getString("data",""));
             values.put(Tasks.actions, forCp.getString("actions", ""));
 
-            String mSelectionClause = Tasks.base +  " LIKE ?";
-            String[] mSelectionArgs = {forCp.getString("base","")};
-            //int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
             context.getContentResolver().insert(Tasks.CONTENT_URI,values);
 
             RecipeCP.saveToRecipeCp(context,forCp.getString("base",""));
+            checkForTime(forCp.getString("base",""),context,RecipeCP.getCount(context)-1);
             setDone(context);
 
         }
@@ -139,67 +146,19 @@ public class ForCp {
         int c = context.getContentResolver().update(Tasks.CONTENT_URI, values, mSelectionClause, mSelectionArgs);
     }
 
-//    static public void insert(Context context){
-//        ContentValues values = new ContentValues();
-////        values.put(Tasks.base, "pluggedIn");
-////        values.put(Tasks.state, "false");
-////        Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "pluggedOut");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "below15");
-////        values.put(Tasks.state, "false");
-////        Uri uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "newSms");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "newSmsString");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "newSmsNumber");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "cAny");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "dAny");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "cSpecific");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "dSpecific");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "cBlue");
-////        values.put(Tasks.state, "false");
-////        uri =context. getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "dBlue");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "link");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "image");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-////        values = new ContentValues();
-////        values.put(Tasks.base, "tweet");
-////        values.put(Tasks.state, "false");
-////        uri = context.getContentResolver().insert(Tasks.CONTENT_URI, values);
-//    }
+   static void checkForTime(String base,Context context,int id){
+       if(base.equalsIgnoreCase("time")){
+           SharedPreferences sharedPreferences=context.getSharedPreferences("time",Context.MODE_PRIVATE);
+           Intent intentPost = new Intent(context, TimeReceiver.class);
 
+           intentPost.putExtra("id",""+id);
+           AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+           Long time =new GregorianCalendar().getTimeInMillis() +Long.parseLong(sharedPreferences.getString("alarm",""));
+
+           intentPost.setData(Uri.parse("myalarms://"+id));
+           alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,
+                   intentPost, PendingIntent.FLAG_UPDATE_CURRENT));
+       }
+
+    }
 }

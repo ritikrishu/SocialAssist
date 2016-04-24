@@ -52,6 +52,7 @@ public class UserInputThen extends AppCompatActivity {
                     ForCp.checkLaunch(getApplicationContext());
                     layout.setVisibility(View.GONE);
                     startActivity(new Intent(UserInputThen.this, HomeActivity.class));
+                    finish();
                 }
             });
 
@@ -84,6 +85,7 @@ public class UserInputThen extends AppCompatActivity {
                     ForCp.checkLaunch(getApplicationContext());
                     layout.setVisibility(View.GONE);
                     startActivity(new Intent(UserInputThen.this, HomeActivity.class));
+                    finish();
 
                 }
             });
@@ -140,6 +142,7 @@ public class UserInputThen extends AppCompatActivity {
             ForCp.checkLaunch(getApplicationContext());
             layout.setVisibility(View.GONE);
             startActivity(new Intent(UserInputThen.this, HomeActivity.class));
+            finish();
             cursor.close();
 
         }

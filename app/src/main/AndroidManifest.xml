@@ -220,6 +220,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.g38.socialassist.CreateRecipeActivity" />
             ></activity>
+        <receiver android:name="android.g38.sanyam.androidreceivers.TimeReceiver"/>
     </application>
 
 </manifest>
