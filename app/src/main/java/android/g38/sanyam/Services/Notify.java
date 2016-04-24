@@ -71,7 +71,8 @@ public class Notify {
             if(data.equals("pluggedIn")||data.equals("pluggedOut")||
                     data.equals("below15")){
                 data=sp.getString("level","");
-            }
+            }else
+            data="";
             beanRecipe.setData(c.getString(c.getColumnIndex(Tasks.DATA))+data);
             beanRecipe.setBase(c.getString(c.getColumnIndex(Tasks.BASE)));
             beanRecipe.setStatus(status);

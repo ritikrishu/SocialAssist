@@ -54,6 +54,7 @@ public class SMSTriggerActivity extends AppCompatActivity {
                 ForCp.setBase(getApplicationContext(), "newSms");
                 RecipeCP.setIf(getApplicationContext(), "" + R.drawable.ic_sms_channel, newSms.getText().toString(),"Received New Message.");
                 startActivity(new Intent(SMSTriggerActivity.this, CreateRecipeActivity.class));
+                finish();
 
             }
         });

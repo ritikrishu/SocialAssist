@@ -66,6 +66,7 @@ public class UserInput extends AppCompatActivity {
                     RecipeCP.setExtra(getApplicationContext(),input.getText().toString());
                     layout.setVisibility(View.GONE);
                     startActivity(new Intent(UserInput.this, CreateRecipeActivity.class));
+                    finish();
                 }
             });
         }
@@ -90,6 +91,7 @@ public class UserInput extends AppCompatActivity {
             RecipeCP.setExtra(getApplicationContext(),imagePath);
             layout.setVisibility(View.GONE);
             startActivity(new Intent(UserInput.this, CreateRecipeActivity.class));
+            finish();
             cursor.close();
 
         }

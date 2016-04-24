@@ -67,6 +67,7 @@ public class BatteryTriggerActivity extends AppCompatActivity {
 
     void launchCreate(){
         startActivity(new Intent(BatteryTriggerActivity.this, CreateRecipeActivity.class));
+        finish();
     }
 //    void setBase(String base){
 //        if(!(forCp.getBoolean("addDone",false))){

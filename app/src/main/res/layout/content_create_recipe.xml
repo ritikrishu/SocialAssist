@@ -17,35 +17,39 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:orientation="horizontal"
-    android:layout_marginTop="60dp">
+    android:layout_marginTop="60dp"
+    android:background="@android:color/white">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="if"
-        android:textSize="45sp"
+        android:textSize="50sp"
         android:textStyle="bold|normal"
         android:textColor="@android:color/black"
         />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:onClick="onIFClick"
-        android:src="@drawable/ic_add"/>
+        android:src="@drawable/create_if"
+        android:id="@+id/ivIf"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:text="then"
-        android:textSize="45sp"
+        android:textSize="50sp"
         android:textStyle="bold|normal"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_dark"
         />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
         android:layout_marginLeft="10dp"
         android:onClick="onThenClick"
-        android:src="@drawable/ic_add"/>
+        android:src="@drawable/create_thenblank"
+        android:id="@+id/ivThen"/>
 </LinearLayout>
 </RelativeLayout>

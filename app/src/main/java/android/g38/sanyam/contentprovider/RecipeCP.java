@@ -46,6 +46,11 @@ public class RecipeCP {
         ContentValues values = new ContentValues();
         values.put(Tasks.IF, forCp.getString("if",""));
         values.put(Tasks.THEN, forCp.getString("then",""));
+        String data=forCp.getString("data","");
+        if(data.contains("time")) {
+            data.replace("time", "");
+        }
+        values.put(Tasks.DATA, data);
         values.put(Tasks.RECIPE_NAME, forCp.getString("recipeName",""));
         values.put(Tasks.DATA, forCp.getString("data", ""));
         values.put(Tasks.BASE, base);
@@ -54,6 +59,9 @@ public class RecipeCP {
 
     }
 
+    static public int getCount(Context context){
+        return getData(context).getCount();
+    }
 
 
 }

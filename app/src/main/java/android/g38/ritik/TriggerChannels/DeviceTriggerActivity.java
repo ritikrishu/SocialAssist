@@ -214,6 +214,9 @@ public class DeviceTriggerActivity extends AppCompatActivity {
     }
     void launchHome(){
         startActivity(new Intent(DeviceTriggerActivity.this, HomeActivity.class));
+        finish();
     }
-    void launchCreate(){startActivity(new Intent(DeviceTriggerActivity.this, CreateRecipeActivity.class));}
+    void launchCreate(){startActivity(new Intent(DeviceTriggerActivity.this, CreateRecipeActivity.class));
+        finish();
+    }
 }

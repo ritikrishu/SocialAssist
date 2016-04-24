@@ -3,6 +3,7 @@ package android.g38.socialassist;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.g38.ritik.AdaptersAndAnimators.HomeListAdapter;
 import android.g38.ritik.Database.SocialAssistDBHelper;
@@ -63,7 +64,10 @@ public class HomeActivity extends AppCompatActivity
 
         listView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences("forCp",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("base","");
+        editor.apply();
 
     }
 	
@@ -121,6 +125,10 @@ public class HomeActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         listView.setAdapter(new HomeListAdapter(HomeActivity.this, getLayoutInflater()));
+        SharedPreferences sharedPreferences = getSharedPreferences("forCp",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("base","");
+        editor.apply();
 
     }
 
