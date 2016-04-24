@@ -234,6 +234,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.g38.socialassist.HomeActivity" />
         </activity>
+        <activity
+            android:name=".PersonalRecipeActivity"
+            android:label="@string/title_activity_personal_recipe"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.g38.socialassist.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
