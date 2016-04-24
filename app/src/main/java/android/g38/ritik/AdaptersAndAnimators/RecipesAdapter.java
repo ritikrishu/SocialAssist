@@ -1,16 +1,20 @@
 package android.g38.ritik.AdaptersAndAnimators;
 
 import android.content.Context;
+import android.g38.sanyam.contentprovider.ModeCp;
 import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.sanyam.contentprovider.Tasks;
 import android.g38.socialassist.R;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -27,6 +31,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.DataObje
     HashMap<String,ArrayList<String>> listHashMap;
     LayoutInflater mInflater;
     int count;
+    Context context;
 
     public void getWholeList(Context context){
         listHashMap = RecipeCP.getDataForAdapter(context);
@@ -34,6 +39,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.DataObje
 
     public RecipesAdapter(Context context, LayoutInflater mInflater){
             getWholeList(context);
+        this.context=context;
             this.mInflater = mInflater;
             this.count = listHashMap.get(Tasks.MODE).size();
     }
@@ -52,20 +58,28 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.DataObje
     }
 
     @Override
-    public void onBindViewHolder(final DataObjectHolder holder, int position) {
+    public void onBindViewHolder(final DataObjectHolder holder, final int position) {
         holder.ivIf.setImageResource(Integer.valueOf(listHashMap.get(Tasks.IF).get(position)));
         holder.ivThen.setImageResource(Integer.valueOf(listHashMap.get(Tasks.THEN).get(position)));
         holder.shrtDes.setText(listHashMap.get(Tasks.RECIPE_NAME).get(position));
-        holder.onOff.setSelected(listHashMap.get(Tasks.MODE).get(position).equalsIgnoreCase("on"));
+        //holder.onOff.setSelected(listHashMap.get(Tasks.MODE).get(position).equalsIgnoreCase("on"));
+        holder.aSwitch.setChecked(listHashMap.get(Tasks.MODE).get(position).equalsIgnoreCase("on"));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         holder.container.setLayoutParams(layoutParams);
         YoYo.with(Techniques.StandUp).duration(1000).playOn(holder.itemView);
-        holder.onOff.setOnClickListener(new View.OnClickListener() {
+//        holder.onOff.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                buttonClick(holder);
+//            }
+//        });
+        holder.aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonClick(holder);
+                setMode(holder,position+1);
             }
         });
+
     }
 
 
@@ -78,14 +92,16 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.DataObje
 
         ImageView ivIf, ivThen;
         TextView shrtDes;
-        ToggleButton onOff;
+        //ToggleButton onOff;
+        Switch aSwitch;
         RelativeLayout container;
         public DataObjectHolder(View itemView) {
             super(itemView);
             ivIf = (ImageView) itemView.findViewById(R.id.ivIf);
             ivThen = (ImageView) itemView.findViewById(R.id.ivThen);
             shrtDes = (TextView) itemView.findViewById(R.id.tvShrtDes);
-            onOff = (ToggleButton) itemView.findViewById(R.id.tbOnOff);
+           // onOff = (ToggleButton) itemView.findViewById(R.id.tbOnOff);
+            aSwitch=(Switch)itemView.findViewById(R.id.switch2);
             container = (RelativeLayout) itemView.findViewById(R.id.rlRecipe);
 
         }
@@ -97,12 +113,22 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.DataObje
     }
 
 
-    private void buttonClick(DataObjectHolder holder){
-        if(holder.onOff.getText().equals("ON")){
-            //code for toogle button on
-        }
-        else{
-            //code for toogle button off
+//    private void buttonClick(DataObjectHolder holder){
+//        if(holder.onOff.getText().equals("ON")){
+//            //code for toogle button on
+//        }
+//        else{
+//            //code for toogle button off
+//        }
+//
+//
+//    }
+
+    void setMode(DataObjectHolder holder,int id){
+        if(holder.aSwitch.isChecked()){
+            ModeCp.changeMode(""+id,"on",context);
+        }else {
+            ModeCp.changeMode(""+id,"off",context);
         }
     }
 }
