@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +62,11 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_home);
 
         listView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
 
@@ -114,11 +120,11 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(HomeActivity.this,SettingsActivity.class));
-        }
-        else if(id == R.id.action_recipe)
-            startActivity(new Intent(HomeActivity.this,RecipesActivity.class));
+//        if (id == R.id.action_settings) {
+//            startActivity(new Intent(HomeActivity.this,SettingsActivity.class));
+//        }
+//        else if(id == R.id.action_recipe)
+//            startActivity(new Intent(HomeActivity.this,RecipesActivity.class));
 
         return super.onOptionsItemSelected(item);
     }
@@ -139,19 +145,16 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.home) {
+        } else if (id == R.id.my_recipe) {
+            Intent intent = new Intent(getApplicationContext(), RecipesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.create_recipe) {
+            Intent intent = new Intent(getApplicationContext(), CreateRecipeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.add_channels) {
+            Intent intent = new Intent(getApplicationContext(), ChannelsActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
