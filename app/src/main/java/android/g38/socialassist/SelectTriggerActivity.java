@@ -107,8 +107,7 @@ public class SelectTriggerActivity extends AppCompatActivity {
                 default:
 
             }
-            finish();
-            Log.e("finish", "SelectTrigger");
+
         }
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.g38.sanyam.contentprovider.ForCp;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.g38.socialassist.HomeActivity;
 import android.g38.socialassist.R;
 import android.os.Bundle;
@@ -38,11 +39,11 @@ public class CreateGmailActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (to.getText().toString() == null)
+                if (to.getText().toString() == null||to.getText().toString().equals(""))
                     Toast.makeText(CreateGmailActivity.this, "Email address not valid", Toast.LENGTH_SHORT).show();
-                else if (sub.getText().toString() == null)
+                else if (sub.getText().toString() == null||sub.getText().toString().equals(""))
                     Toast.makeText(CreateGmailActivity.this, "Subject is empty", Toast.LENGTH_SHORT).show();
-                else if (body.getText().toString() == null)
+                else if (body.getText().toString() == null||body.getText().toString().equals(""))
                     Toast.makeText(CreateGmailActivity.this, "Body is empty", Toast.LENGTH_SHORT).show();
                 else {
 //                    SharedPreferences settings = getSharedPreferences("accountName", MODE_PRIVATE);
@@ -59,9 +60,12 @@ public class CreateGmailActivity extends AppCompatActivity {
 //                    startActivity(new Intent(CreateGmailActivity.this, HomeActivity.class));
 //                    Toast.makeText(CreateGmailActivity.this, "Mail successfully scheduled", Toast.LENGTH_LONG).show();
                     String extra;
+                    RecipeCP.setThen(getApplicationContext(), "" + R.drawable.ic_gmail_channel, "Send mail to "+to.getText().toString());
                     extra=to.getText().toString()+"---"+sub.getText().toString()+"---"+body.getText().toString();
                     ForCp.saveToCp(getApplicationContext(), extra, "android.g38.ritik.Gmail.ScheduleMail");
-                    startActivity(new Intent(CreateGmailActivity.this, HomeActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             }
         });

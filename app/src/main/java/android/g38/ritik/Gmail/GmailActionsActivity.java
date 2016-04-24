@@ -1,6 +1,7 @@
 package android.g38.ritik.Gmail;
 
 import android.content.Intent;
+import android.g38.sanyam.contentprovider.RecipeCP;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ public class GmailActionsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(GmailActionsActivity.this, CreateGmailActivity.class));
             }
         });

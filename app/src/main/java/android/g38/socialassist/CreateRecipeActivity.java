@@ -28,7 +28,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences sharedPreferences = getSharedPreferences("forCp",MODE_PRIVATE);
-        Toast.makeText(getApplicationContext(),""+sharedPreferences.getString("base","blank"), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),""+sharedPreferences.getString("base","blank"), Toast.LENGTH_SHORT).show();
 
         ImageView ivIf =(ImageView)findViewById(R.id.ivIf);
         ImageView ivThen =(ImageView)findViewById(R.id.ivThen);
@@ -78,18 +78,20 @@ public class CreateRecipeActivity extends AppCompatActivity {
         Intent intent = new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class);
         intent.putExtra("IF",true);
         startActivity(intent);
-        finish();
-        Log.e("finish", "Create");
+
     }
     public void onThenClick(View v){
         if(!(base.equals(""))) {
             Intent intent = new Intent(CreateRecipeActivity.this, SelectTriggerActivity.class);
             intent.putExtra("IF", false);
             startActivity(intent);
-            finish();
-            Log.e("finish", "Create then");
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
