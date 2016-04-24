@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -54,7 +55,8 @@ public class PersonalRecipeAdapter extends RecyclerView.Adapter<PersonalRecipeAd
         YoYo.with(Techniques.BounceIn).duration(1400).playOn(holder.tvRecipeName);
         YoYo.with(Techniques.FadeIn).duration(1400).playOn(holder.tvToggle);
         YoYo.with(Techniques.Shake).duration(1400).playOn(holder.tvTrigger);
-        YoYo.with(Techniques.RotateIn).duration(5000).playOn(holder.button);
+       // YoYo.with(Techniques.RotateIn).duration(5000).playOn(holder.button);
+        YoYo.with(Techniques.RotateIn).duration(5000).playOn(holder.aSwitch);
         YoYo.with(Techniques.Swing).duration(5000).playOn(holder.ivArrow);
     }
 
@@ -66,7 +68,8 @@ public class PersonalRecipeAdapter extends RecyclerView.Adapter<PersonalRecipeAd
     public class DataHolder extends RecyclerView.ViewHolder {
         TextView tvIf, tvThen, tvRecipeName, tvToggle, tvTrigger;
         ImageView ivIf, ivThen, ivArrow;
-        ToggleButton button;
+       // ToggleButton button;
+        Switch aSwitch;
         RelativeLayout container;
         public DataHolder(View itemView) {
             super(itemView);
@@ -78,7 +81,8 @@ public class PersonalRecipeAdapter extends RecyclerView.Adapter<PersonalRecipeAd
             tvTrigger = (TextView) itemView.findViewById(R.id.tvTrigger);
             ivIf = (ImageView) itemView.findViewById(R.id.ivIf);
             ivThen = (ImageView) itemView.findViewById(R.id.ivThen);
-            button = (ToggleButton) itemView.findViewById(R.id.toggleButton);
+          //  button = (ToggleButton) itemView.findViewById(R.id.toggleButton);
+            aSwitch=(Switch)itemView.findViewById(R.id.switch1);
             container = (RelativeLayout) itemView.findViewById(R.id.rlMain);
         }
     }
