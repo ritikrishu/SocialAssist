@@ -91,6 +91,7 @@ public class CursorFunctions {
             setActions(cursor.getString(cursor.getColumnIndex(Tasks.extras)).trim(),
                     cursor.getString(cursor.getColumnIndex(Tasks.actions)).trim());
         }
+        cursor.close();
     }
 
     void checkForFb(Cursor cursor){
@@ -106,6 +107,8 @@ public class CursorFunctions {
                     cursor.getString(cursor.getColumnIndex(Tasks.actions)).trim());
             setStateToFalse(context,rId);
         }
+        cursor.close();
+
     }
 
     void schedule(String className, String extras) {

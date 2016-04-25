@@ -66,7 +66,7 @@
                         android:paddingRight="40dp"
                         android:id="@+id/tvThen"
                         android:text="THEN"
-                        android:textSize="35sp"
+                        android:textSize="30sp"
                         android:fontFamily="sans-serif-smallcaps"
                         android:layout_alignBottom="@+id/ivThen"
                         android:layout_alignParentLeft="true"
@@ -105,6 +105,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/switch1"
+                        android:saveEnabled="true"
+                        android:enabled="true"
                         android:layout_weight="0.25"
                         android:layout_marginTop="30dp"
                         android:layout_below="@+id/relativeLayout2"/>

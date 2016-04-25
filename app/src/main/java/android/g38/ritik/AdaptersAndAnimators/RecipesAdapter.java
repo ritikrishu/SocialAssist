@@ -64,6 +64,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.DataObje
         holder.shrtDes.setText(listHashMap.get(Tasks.RECIPE_NAME).get(position));
         //holder.onOff.setSelected(listHashMap.get(Tasks.MODE).get(position).equalsIgnoreCase("on"));
         holder.aSwitch.setChecked(listHashMap.get(Tasks.MODE).get(position).equalsIgnoreCase("on"));
+        Log.e("tag switch", listHashMap.get(Tasks.MODE).get(position).equalsIgnoreCase("on")+"----" +listHashMap.get(Tasks.MODE).get(position));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         holder.container.setLayoutParams(layoutParams);
         YoYo.with(Techniques.StandUp).duration(1000).playOn(holder.itemView);

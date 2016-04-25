@@ -159,7 +159,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
         arrayList.add(1,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
         arrayList.add(2,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
         arrayList.add(3,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
-
+        arrayList.add(4,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_MODEID).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
+        arrayList.add(5,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_MODEVALUE).get(Double.valueOf(Math.ceil((float)position / 2)).intValue() - 1));
         Log.i("tag", position +"------"+ arrayList.get(0));
         return arrayList;
     }
@@ -169,6 +170,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.DataOb
         arrayList.add(1,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_ACTION).get(0));
         arrayList.add(2,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_SHORTDES).get(0));
         arrayList.add(3,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_DETAIL).get(0));
+        arrayList.add(4,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_MODEID).get(0));
+        arrayList.add(5,listHashMap.get(DataBaseContracter.EvenEntry.COLUMN_MODEVALUE).get(0));
         return arrayList;
     }
 }

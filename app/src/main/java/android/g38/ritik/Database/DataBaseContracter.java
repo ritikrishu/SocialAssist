@@ -14,5 +14,7 @@ public class DataBaseContracter{
         public static final String COLUMN_EVENT = "event";
         public static final String COLUMN_SHORTDES = "shortdes";
         public static final String COLUMN_DETAIL = "detaildes";
+        public static final String COLUMN_MODEID = "modeID";
+        public static final String COLUMN_MODEVALUE = "modeValue";
     }
 }

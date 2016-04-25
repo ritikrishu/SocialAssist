@@ -17,8 +17,15 @@ public class ModeCp {
 
     }
 
-    static public Cursor getData(Context context){
-        return  context.getContentResolver().query(Tasks.CONTENT_URI_FOR_MODE, null, null, null, null);
+    static public String getModeData(Context context, int ID){
+        Cursor cursor = context.getContentResolver().query(Tasks.CONTENT_URI_FOR_MODE, new String[]{"MODE"}, "_id = "+ID, null, null);
+        String returnValue = "";
+        if(cursor != null) {
+            cursor.moveToFirst();
+            returnValue = cursor.getString(0);
+            cursor.close();
+        }
+        return returnValue;
     }
 
     static public void changeMode(String id,String mode,Context context){

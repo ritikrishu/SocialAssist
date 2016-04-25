@@ -34,6 +34,6 @@ public class PersonalRecipeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        recyclerView.setAdapter(new PersonalRecipeAdapter(getIntent(),getLayoutInflater()));
+        recyclerView.setAdapter(new PersonalRecipeAdapter(getIntent(),getLayoutInflater(),PersonalRecipeActivity.this ));
     }
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.g38.sanyam.DAO.BeanRecipe;
+import android.g38.sanyam.contentprovider.ModeCp;
 import android.g38.socialassist.R;
 import android.util.Log;
 
@@ -31,7 +32,8 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
                 + DataBaseContracter.EvenEntry.COLUMN_TIME + " TEXT NOT NULL, " +
                 DataBaseContracter.EvenEntry.COLUMN_ACTION + " TEXT NOT NULL , " + DataBaseContracter.EvenEntry.COLUMN_TRIGGER + " TEXT NOT NULL, " +
                 DataBaseContracter.EvenEntry.COLUMN_SHORTDES + " TEXT NOT NULL, " + DataBaseContracter.EvenEntry.COLUMN_EVENT + " TEXT NOT NULL, " +
-                DataBaseContracter.EvenEntry.COLUMN_DETAIL + " TEXT NOT NULL ) ;";
+                DataBaseContracter.EvenEntry.COLUMN_DETAIL + " TEXT NOT NULL , " + DataBaseContracter.EvenEntry.COLUMN_MODEVALUE + " TEXT NOT NULL , "
+                + DataBaseContracter.EvenEntry.COLUMN_MODEID + " TEXT NOT NULL) ;";
 
 
         //  "FOREIGN KEY ( " + DataBaseContracter.OddEntry._ID + " ) REFERENCES " + DataBaseContracter.OddEntry.TABLE_NAME + " ( " + DataBaseContracter.OddEntry._ID + " ) );";
@@ -52,12 +54,16 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
 
     public static void insertHomeListViewItems(SQLiteDatabase db, BeanRecipe row){
         ContentValues values = new ContentValues();
+
         values.put(DataBaseContracter.EvenEntry.COLUMN_EVENT,row.getStatus());
         values.put(DataBaseContracter.EvenEntry.COLUMN_TRIGGER,row.getIf());
         values.put(DataBaseContracter.EvenEntry.COLUMN_ACTION, row.getThen());
         values.put(DataBaseContracter.EvenEntry.COLUMN_SHORTDES,row.getName());// @sanyam verify if name is short description
         values.put(DataBaseContracter.EvenEntry.COLUMN_TIME,row.getTime());
         values.put(DataBaseContracter.EvenEntry.COLUMN_DETAIL,row.getData());// @sanyam verify if data is the trigger action detail. ex : "Battery Unpluged", "You posted on facebook"...
+        values.put(DataBaseContracter.EvenEntry.COLUMN_MODEID, row.getId());
+        values.put(DataBaseContracter.EvenEntry.COLUMN_MODEVALUE, ModeCp.getModeData(context, Integer.valueOf(row.getId())));
+        Log.i("tag", ModeCp.getModeData(context, Integer.valueOf(row.getId())));
         db.insert(DataBaseContracter.EvenEntry.TABLE_NAME,null,values);
 
 //        values.clear();
@@ -73,8 +79,9 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
         final ArrayList<String> valuesTrigger = new ArrayList<>();
         final ArrayList<String> valuesShortDes = new ArrayList<>();
         final ArrayList<String> valuesEvent = new ArrayList<>();
-
+        final ArrayList<String> valuesMode = new ArrayList<>();
         final ArrayList<String> valuesDetail = new ArrayList<>();
+        final ArrayList<String> valuesModeID = new ArrayList<>();
 
         HashMap<String, ArrayList<String>> listItemsHashMap = new HashMap<>();
         Thread tTime = new Thread() {
@@ -137,20 +144,41 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
                 cursor.close();
             }
         };
+        Thread tRow = new Thread(){
+            @Override
+            public void run() {
+                Cursor cursor = db.query(DataBaseContracter.EvenEntry.TABLE_NAME,new String[]{DataBaseContracter.EvenEntry.COLUMN_MODEVALUE},null,null,null,null,"_ID DESC");
+                while (cursor.moveToNext())
+                    valuesMode.add(cursor.getString(0));
+                cursor.close();
+            }
+        };
+
+        Thread tModeID = new Thread(){
+            @Override
+            public void run() {
+                Cursor cursor = db.query(DataBaseContracter.EvenEntry.TABLE_NAME,new String[]{DataBaseContracter.EvenEntry.COLUMN_MODEID},null,null,null,null,"_ID DESC");
+                while (cursor.moveToNext())
+                    valuesModeID.add(cursor.getString(0));
+                cursor.close();
+            }
+        };
         tAction.start();
         tDetail.start();
         tEvent.start();
         tSrtDes.start();
         tTime.start();
         tTrigger.start();
+        tRow.start();
+        tModeID.start();
         try {
-            Thread.sleep(25);
+            Thread.sleep(30);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        while(tAction.isAlive() || tDetail.isAlive() || tEvent.isAlive() || tSrtDes.isAlive() || tTime.isAlive() || tTrigger.isAlive()){
+        while(tAction.isAlive() || tDetail.isAlive() || tEvent.isAlive() || tSrtDes.isAlive() || tTime.isAlive() || tTrigger.isAlive() || tRow.isAlive() || tModeID.isAlive()){
             try {
-                Thread.sleep(25);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -164,8 +192,9 @@ public class SocialAssistDBHelper extends SQLiteOpenHelper {
         listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_TRIGGER, valuesTrigger);
         listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_SHORTDES, valuesShortDes);
         listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_EVENT, valuesEvent);
-
+        listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_MODEID, valuesModeID);
         listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_DETAIL, valuesDetail);
+        listItemsHashMap.put(DataBaseContracter.EvenEntry.COLUMN_MODEVALUE, valuesMode);
         return listItemsHashMap;
     }
 
