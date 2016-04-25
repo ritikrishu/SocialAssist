@@ -81,7 +81,7 @@ public class ScheduledTweet extends BroadcastReceiver
             }
             sharedPreferences=context.getSharedPreferences(PREF_NAME, 0);
             new Tweet().execute("" + status);
-            notify.buildNotification("Tweeted",extras.getString(status),extras.getString("rId"),status);
+            notify.buildNotification("Tweeted",status,extras.getString("rId"),status);
 
 
 

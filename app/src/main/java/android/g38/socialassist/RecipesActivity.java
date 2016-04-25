@@ -26,18 +26,6 @@ public class RecipesActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.rvMyRecipes);
         recyclerView.setLayoutManager(new LinearLayoutManager(RecipesActivity.this));
 
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
